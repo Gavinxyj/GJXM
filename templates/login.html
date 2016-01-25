@@ -1,26 +1,26 @@
 <html>
 	<head>
-	<title>ICMS 集成配置管理系统</title>
+	<title>扬州光交门锁管理系统</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
 	<link href="./css/style.css" rel="stylesheet" type="text/css" />
-   <script type="text/javascript" src="./js/ui/jquery-1.8.0.min.js"></script>
+    
 	</head>
 <body>
-	<div id="top"><div class="logo">江苏移动统一发布平台</div></div>
+	<div class="top" id="top"><div class="logo">扬州光交门锁管理系统</div></div>
 	<div class="mainarea" id="mainarea">
 		<div class="loginarea">
 			<div class="loginbox" id="loginbox">
 			  <div class="logincon">
-			  <form id="loginForm" method="post" action = "index.php">
+			   <form id="loginForm" method="post" action = "index.php">
 					<div class="errtip" id="errMsg" style="display:none"></div>
-					<label><input class="user" id="userId" name="userId" value="请输入用户名" onBlur="if(this.value=='') this.value='请输入用户名'" onFocus="if(this.value =='请输入用户名' ) this.value=''" /></label>
-					<label><input class="pwd" id="pwd" name="pwd" value="请输入密码"  onFocus="if(this.value =='请输入密码' ) {this.value='';this.style.display='none';document.getElementById('pwd').style.display='inline';document.getElementById('pwd').focus();}" />
-					<input class="pwd" type="password" id="password" autocomplete="off" name="bean.password" onBlur="if(this.value=='') {document.getElementById('pwd').value='请输入密码';document.getElementById('pwd').style.display='inline';this.style.display='none';}" style="display:none" /></label>
-					<label class="code"><input class="code" id="authCode" value="请输入验证码" onBlur="if(this.value=='') this.value='请输入验证码'" onFocus="if(this.value =='请输入验证码' ) this.value=''" /></label>
+					<label><input class="user" id="userId" name="userId" value="请输入用户名" /></label>
+					<label><input class="pwd" id="pwd" name="pwd" value="请输入密码"  />
+					<input class="pwd" type="password" id="passwordLine" name="password"  style="display:none" /></label>
+					<label class="code"><input class="code" id="authCode" value="请输入验证码" /></label>
 					<div class="codebox"><img id="authImg" src="./images/captcha.png" style="height:35px"  /></div><a href="#" onclick="changeImg()" class="freshico">刷新</a>
 					<div class="loginbtnarea">
 						<button class="loginbtn" type="submit" name = "login">登&nbsp;录</button>
-						<button class="loginbtn" type="reset">重&nbsp;置</button>
+						<button class="loginbtn" type="reset" >重&nbsp;置</button>
 					</div>
 			   </form>
 			   </div>
@@ -28,63 +28,7 @@
 		</div>
 	</div>
 	<div class="copy">中国移动 版权所有</div>
+	<script type="text/javascript" src="./js/ui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="./js/login.js"></script>
 </body>
-<script type="text/javascript">
-		function autoSize() {
-			var maxWidth = Math.max(
-				document.documentElement["clientWidth"],
-				document.body["scrollWidth"], document.documentElement["scrollWidth"],
-				document.body["offsetWidth"], document.documentElement["offsetWidth"]
-			);
-			document.getElementById("loginbox").style.height = ( document.documentElement["clientHeight"] - 100 ) +'px';
-		}
-		autoSize();
-		window.onresize = autoSize;
-		
-		function changeImg() {
-			document.getElementById("authImg").src = "/images/captcha.png?" +  Math.random();
-		}
-		
-		document.onkeydown = function(event) {
-            var e = event || window.event || arguments.callee.caller.arguments[0];
-            if(e && e.keyCode==13) {
-                 login();
-            }
-        }; 
-		
-		function login() {
-						
-			var userId = document.getElementById("userId").value;
-			
-			var password = document.getElementById("pwd").value;					
-			
-			var authCode = document.getElementById("authCode").value;
-			
- 	   		if("" == userId) {
-	   			document.getElementById("userId").focus();
-				return;
-			}
-			
-			if("" == password) {
-			
-				document.getElementById("password").focus();
-				return;
-			}
-			
-			if("" == authCode) {
-				document.getElementById("authCode").focus();
-				return;
-			}				    
-			
-	   	}
-		
-		function load()
-		{
-			document.getElementById("userId").value = "请输入用户名";
-			
-			document.getElementById("pwd").value = "请输入密码";					
-			
-			document.getElementById("authCode").value = "请输入验证码";
-		}
-	</script>
 </html>

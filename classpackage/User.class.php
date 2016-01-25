@@ -1,9 +1,22 @@
 <?php
+/**
+ *
+ *@file        User.class.php
+ *@author      xieyoujiang
+ *@Data        2016年1月25日
+ *@language    PHP
+ *@E-mail      xie_youjiang@163.com
+ *@copyright(c) 扬州格佳科技有限公司
+ *
+ */
+require_once 'Db.class.php';
 
-require_once 'db.class.php';
-
-class user
+class User
 {
+	private $userName = "";
+	
+	private $password = "";
+	
     private $fullName = "";
     
     private $phone    = "";
@@ -19,6 +32,8 @@ class user
     private $lastIp   = "";
     
     private $lastTime = "";
+    
+    private $head     = "";
     
  /**
      * @return the $fullName
@@ -148,13 +163,53 @@ class user
         $this->lastTime = $lastTime;
     }
 
-    public static function checkLogin($userName, $password)
+    /**
+     * @return the $userName
+     */
+    public function getUserName ()
+    {
+    	return $this->userName;
+    }
+    
+    /**
+     * @return the $password
+     */
+    public function getPassword ()
+    {
+    	return $this->password;
+    }
+    
+    /**
+     * @param string $userName
+     */
+    public function setUserName ( $userName )
+    {
+    	$this->userName = $userName;
+    }
+    
+    /**
+     * @param string $password
+     */
+    public function setPassword ( $password )
+    {
+    	$this->password = $password;
+    }
+    
+    /**
+	 * @return the $head
+	 */
+	public function getHead ()
+	{
+		return $this->head;
+	}
+
+	public static function checkLogin($userName, $password)
     {
         try 
         {
             $strSql = "select f_password from t_users where f_username= ?";
             
-            $rs = dbOperator::querySql($strSql, array($userName));
+            $rs = DbOperator::querySql($strSql, array($userName));
             
             if($rs != null)
             {
@@ -184,7 +239,7 @@ class user
         {
             $strSql = "update t_users set f_last_login=? ,f_last_time= ? ,f_last_ip= ? where f_username=?";
         
-            $rs = dbOperator::executeSql($strSql, $arrayList);
+            $rs = DbOperator::executeArraySql($strSql, array($arrayList));
           
             return $rs;
         
@@ -196,6 +251,48 @@ class user
         
         return $rs;
     }
+	
+    public static function getAllRecord()
+    {
+    	try 
+    	{
+    		$strSql = "select f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users";
+    		
+    		$beanArray = array();
+    		
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$count = 0;
+    		
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			 $user = new User();
+    			 
+    			 $user->userName  = $arrayIndex['F_USERNAME'];
+    			 $user->password  = $arrayIndex['F_PASSWORD'];
+    			 $user->fullName  = $arrayIndex['F_FULLNAME'];
+    			 $user->phone     = $arrayIndex['F_PHONE'];
+    			 $user->rank      = $arrayIndex['F_RANK'];
+    			 $user->head      = $arrayIndex['F_HEAD'];
+    			 $user->headPhone = $arrayIndex['F_HEAD_PHONE'];
+    			 $user->bossPhone = $arrayIndex['F_BOSS_PHONE'];
+    			 $user->time      = $arrayIndex['F_TIME'];
+    			 $user->lastLogin = $arrayIndex['F_LAST_LOGIN'];
+    			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
+    			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
+    			 
+    			 $beanArray[$count++]= $user;
+    		}
+    		
+    		return $beanArray;
+    		
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+    }
+
 }
 
 ?>

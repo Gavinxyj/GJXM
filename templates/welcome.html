@@ -1,169 +1,122 @@
 <html>
-	<head>
-	<title>ICMS 集成配置管理系统</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-	<link href="./css/style.css" rel="stylesheet" type="text/css" />
-	<link href="./css/planeui.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.3.6/themes/default/easyui.css" />
-	<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.3.6/themes/icon.css" />
+<head>
+<title>ICMS 集成配置管理系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./css/style.css" rel="stylesheet" type="text/css" />
+<link href="./css/planeui.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="./js/jquery-easyui-1.3.6/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="./js/jquery-easyui-1.3.6/themes/icon.css" />
 
-	<script type="text/javascript" src="./js/jquery-easyui-1.3.6/jquery-1.8.0.min.js"></script>
-	<script type="text/javascript" src="./js/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
-	
-	</head>
-<body >
-	<div class="top" id="top"><div class="logo">江苏移动统一发布平台</div></div>
-	<div class="easyui-layout" style="width:100%;height:95%;" id="layout">	 
+<script type="text/javascript"
+	src="./js/jquery-easyui-1.3.6/jquery-1.8.0.min.js"></script>
+<script type="text/javascript"
+	src="./js/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
 
-      <div region="west" split="true" title="菜单导航" style="width:175px;">
-		<div id="aa" class="easyui-accordion" data-options="fit:true,border:false">
+</head>
+<body>
+	<div class="top" id="top">
+		<div class="logo">江苏移动统一发布平台</div>
+	</div>
+	<div class="easyui-layout" style="width: 100%; height: 95%;"
+		id="layout">
+
+		<div region="west" split="true" title="菜单导航" style="width: 175px;">
+			<div id="aa" class="easyui-accordion"
+				data-options="fit:true,border:false">
 				<div title='用户管理'>
-					<ul id="menuTree" class="easyui-tree">				
-					</ul>	
-					
+					<ul id="menuTree" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='区域管理'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='道路管理'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='设备管理'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='监控部位管理'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='短信猫设置'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
+
 				</div>
 				<div title='系统设置'>
-					<ul id="menuTree1" class="easyui-tree">						
-					</ul>	
-					
-				</div>
-		</div>
-	  </div>  
+					<ul id="menuTree1" class="easyui-tree">
+					</ul>
 
-      <div region="center" title="代办事项" style="padding:5px;background:#eee;">
-	  <div id="tt" class="easyui-tabs" data-options="tabPosition:'top',fit:true,border:false,plain:true">  
-		    <div title="首页" id="tabMain">
-				
-		    </div>
-	  </div>  
-	  
-	</div>
-	
+				</div>
+			</div>
+		</div>
+
+		<div region="center" title="代办事项"
+			style="padding: 5px; background: #eee;">
+			<div id="tt" class="easyui-tabs"
+				data-options="tabPosition:'top',fit:true,border:false,plain:true">
+				<div title="首页" id="tabMain">
+					<table
+						class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient">
+						<thead>
+							<tr class="info">
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Username</th>
+								<th>Thornton</th>
+								<th>Operator</th>
+							</tr>
+							<tr>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td>@mdo</td>
+								<td>Thornton</td>
+								<td>
+									<button type="button" class="pui-btn pui-btn-primary" onclick="Edit()">编辑 <span class="arrow-down"></span></button>
+									<button type="button" class="pui-btn pui-btn-error" onclick="Delete()">删除 <span class="arrow-down"></span></button>
+								</td>
+							</tr>
+							<tr>
+
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+								<td>Thornton</td>
+								<td>
+									<button type="button" class="pui-btn pui-btn-primary" onclick="Edit()">编辑 <span class="arrow-down"></span></button>
+									<button type="button" class="pui-btn pui-btn-error" onclick="Delete()">删除 <span class="arrow-down"></span></button>
+								</td>
+							</tr>
+							<tr>
+
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td>@fat</td>
+								<td>Thornton</td>
+								<td>
+									<button type="button" class="pui-btn pui-btn-primary" onclick="Edit()">编辑 <span class="arrow-down"></span></button>
+									<button type="button" class="pui-btn pui-btn-error" onclick="Delete()">删除 <span class="arrow-down"></span></button>
+								</td>
+							</tr>
+
+						</thead>
+					</table>
+				</div>
+			</div>
+
+		</div>
 </body>
-<script type="text/javascript">
-    $(document).ready(function(){	
-  	//树
-  	$("#menuTree").tree({
-  		url:'treeJson.json',
-  		"animate":true,
-  		"checkbox":false,
-  		//定义是否只有叶子节点有checkbox
-  		onlyLeafCheck:true,
-  		dnd:true,
-  		//点击菜单时触发
-  		onClick:function(node){
-  						if(typeof(node.attributes.url)=="undefined")
-  						{
-  							alert("URL未定义");
-  						}else
-  						{
-  							var tab = $('#tt').tabs('getTab',node.text);
-							if(null !== tab) {
-								$('#tt').tabs('select',node.text);
-							} else {
-								var content = '<iframe scrolling="auto" frameborder="0" src="'+node.attributes.url+'" style="width:100%;height:100%;overflow-x:hidden;overflow:auto;" id="'+node.id+'"></iframe>';
-								//tab
-								$('#tt').tabs('add',{
-									id: node.id,
-									title: node.text,
-									content:content,
-									selected: true,
-									closable: true
-									
-								});
-							}
-  						}
-						
-  		}
-  	});
-  	$("#menuTree1").tree({
-  		url:'treeJson.json',
-  		"animate":true,
-  		"checkbox":false,
-  		//定义是否只有叶子节点有checkbox
-  		onlyLeafCheck:true,
-  		dnd:true,
-  		//点击菜单时触发
-  		onClick:function(node){
-  						if(typeof(node.attributes.url)=="undefined")
-  						{
-  							alert("URL未定义");
-  						}else
-  						{
-  							var tab = $('#tt').tabs('getTab',node.text);
-							if(null !== tab) {
-								$('#tt').tabs('select',node.text);
-							} else {
-								var content = '<iframe scrolling="auto" frameborder="0" src="'+node.attributes.url+'" style="width:100%;height:100%;overflow-x:hidden;overflow:auto;" id="'+node.id+'"></iframe>';
-								//tab
-								$('#tt').tabs('add',{
-									id: node.id,
-									title: node.text,
-									content:content,
-									selected: true,
-									closable: true
-									
-								});
-							}
-  						}
-						
-  		}
-  	});
- 	/*	$('#tt').tabs({
-				onSelect:function(title){
-					
-					var selectTab=$("#tt").tabs('getSelected');
-					var tabOptions=selectTab.panel('options');
-					if(tabOptions.title=='首页')
-					{
-						alert("欢迎回到首页");
-						if(confirm("是否关闭其他所有tab?"))
-						{
-							var allTabs=$("#tt").tabs('tabs');
-							for(var i=0;i<allTabs.length;i++)
-							{
-								if(allTabs[i].panel('options').title!='首页')
-								$("#tt").tabs('close',allTabs[i].panel('options').title);
-							}
-						}
-						
-					}
-										
-				}
-		}); 	*/
-  
-  });
-  
-  //删除选择的菜单节点
-  $("#removeOneTreeNode").bind('click',function(){
-  		$("#menuTree").tree('remove',$("#menuTree").tree('getSelected').target);
-  });
-  
-       
-	</script>
+<script type="text/javascript" src="./js/welcome.js"></script>
 </html>

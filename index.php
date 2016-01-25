@@ -1,6 +1,16 @@
 <?php
+/**
+ *
+ *@file        index.php
+ *@author      xieyoujiang
+ *@Data        2016年1月25日
+ *@language    PHP
+ *@E-mail      xie_youjiang@163.com
+ *@copyright(c) 扬州格佳科技有限公司
+ *
+ */
     require_once './init.php';
-	require_once 'user.class.php';
+	require_once './classpackage/User.class.php';
 	
 	if(isset($_SESSION['userId']) && isset($_SESSION['rank']))
 	{	
@@ -31,16 +41,19 @@
 		}*/
 		//
 		
-		$bRet = user::checkLogin($_POST['userId'], $_POST['pwd']);
+		$bRet = User::checkLogin($_POST['userId'], $_POST['pwd']);
 		
 		if( $bRet == true )
 		{
 		    $arrayList = array(date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()),$_SERVER['REMOTE_ADDR'], $_POST['userId']);
 		    
-		    $bRet = user::updataStatus($arrayList);
+		    $bRet = User::updataStatus($arrayList);
 		    
 		    if($bRet == true)
 		    {
+		    	$userRecord = User::getAllRecord();
+		    	
+		    	$smarty->assign("userRecord",$userRecord);
 		        $smarty->display('welcome.html');
 		    }
 		}

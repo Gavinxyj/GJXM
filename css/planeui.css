@@ -10510,7 +10510,7 @@ html.no-touch .pui-list.pui-list-stripe > li:hover, .pui-list.pui-list-stripe > 
 }
 
 .pui-table.pui-table-text-center td, .pui-table.pui-table-text-center th {
-  text-align: center;
+  text-align: left;
 }
 
 .pui-table.pui-table-text-left td, .pui-table.pui-table-text-left th {
