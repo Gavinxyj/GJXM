@@ -1,0 +1,46 @@
+﻿[{   
+
+    "id":1,   
+    "text":"管理员列表",     
+	"attributes":{
+		"url" : "test.html"
+	}
+ },
+ {   
+   "text":"操作员列表",   
+   "state":"true",   
+   "attributes":{
+	    "url" : "test.html"
+   } 
+ },
+ {   
+   "text":"安装人员列表",   
+   "state":"true",   
+   "attributes":{
+	    "url" : "test.html"
+   } 
+ },
+ {   
+   "text":"安全人员列表",   
+   "state":"true",   
+   "attributes":{
+	    "url" : "test.html"
+   } 
+ },
+ {   
+   "text":"主任列表",   
+   "state":"true",   
+   "attributes":{
+	    "url" : "test.html"
+   } 
+ },
+ {   
+   "text":"用户权限",   
+   "state":"true",   
+   "attributes":{
+	    "url" : "test.html"
+   } 
+ }
+ ]  
+
+

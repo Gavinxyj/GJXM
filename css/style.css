@@ -1,0 +1,298 @@
+html, body, div, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, p, form,
+	table, th, td, iframe {
+	margin: 0;
+	padding: 0;
+}
+
+tr, td {
+	font-size: 13px;
+}
+
+body {
+	font: 12px Arial, Verdana, "宋体";
+	color: #444;
+}
+
+img {
+	border: none;
+}
+
+ul, ul li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: #025dae;
+}
+
+.l {
+	float: left;
+}
+
+.r {
+	float: right;
+}
+
+.c {
+	clear: both;
+}
+/*--结构--*/
+.leftside {
+	float: left;
+	width: 200px;
+	padding-top: 2px;
+	border-bottom: 1px solid #d2d2d2;
+	overflow: hidden;
+}
+
+.leftbar {
+	float: left;
+	width: 12px;
+	padding-top: 2px;
+	background: #e9e9e9;
+	border-top: 1px solid #d2d2d2;
+	display: none
+}
+
+.switchbtn {
+	position: absolute;
+	width: 16px;
+	height: 60px;
+	left: -13px;
+	top: 150px;
+	background: url(../images/switch_right.png) no-repeat;
+	cursor: pointer;
+}
+
+.maincontent {
+	background: #fff;
+	overflow: hidden;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+.footer {
+	clear: both;
+	width: 100%;
+	background: url(../images/footerbg.gif) repeat-x;
+	height: 23px;
+	line-height: 23px;
+	color: #fff;
+}
+
+.footer span {
+	display: inline-block;
+	padding: 0 5px;
+}
+
+.line {
+	padding-right: 0;
+	background: url(../images/line.gif) no-repeat center;
+}
+/*--head--*/
+#top {
+	background: url(../images/topbg.gif) repeat-x;
+	height: 59px;
+	width: 100%;
+}
+
+.logo {
+	float: left;
+	background: url(../images/logo.gif) no-repeat;
+	height: 58px;
+	width: 695px;
+	text-indent: -999px;
+}
+
+.mainarea {
+	width: 100%;
+	height: 90%;
+}
+
+.funbox {
+	float: right;
+	height: 58px;
+}
+
+.funbox a {
+	color: #333;
+	display: inline-block;
+	text-align: center;
+	padding: 0 0 0 22px;
+	margin: 35px 15px 0 15px;
+}
+
+.funbox a:hover {
+	color: #287bdb;
+}
+
+.quit {
+	background: url(../images/ico.gif) no-repeat 0 -1px;
+}
+
+.quit:hover {
+	background: url(../images/ico.gif) no-repeat 0 -42px;
+}
+
+.userinfo {
+	background: url(../images/ico.gif) no-repeat 0 -18px;
+}
+
+.userinfo:hover {
+	background: url(../images/ico.gif) no-repeat 0 -60px;
+}
+/*登录*/
+.copy {
+	clear: both;
+	width: 100%;
+	background: url(../images/login/copybg.gif) repeat-x;
+	height: 25px;
+	padding-top: 10px;
+	text-align: center;
+	color: #000;
+}
+
+.loginarea {
+	background: url(../images/login/loginbg.jpg) repeat-x;
+	width: 100%;
+}
+
+.loginbox {
+	background: url(../images/login/loginboxbg.jpg) no-repeat;
+	width: 1002px;
+	min-height: 473px;
+	margin: 0 auto;
+}
+
+.loginbox input.user {
+	background: url(../images/login/ico.gif) no-repeat 0 0;
+	height: 23px;
+	font-size: 14px;
+	color: #a0a0a0;
+	padding: 0 20px 0 25px;
+	margin: 8px 0 0 8px;
+	*padding-top: 3px;
+	padding-top: 3px\0;
+	border: none;
+	outline: none;
+}
+
+.loginbox input.pwd {
+	background: url(../images/login/ico.gif) no-repeat 0 -23px;
+	height: 23px;
+	font-size: 14px;
+	color: #a0a0a0;
+	padding: 0 20px 0 25px;
+	margin: 8px 0 0 8px;
+	*padding-top: 3px;
+	padding-top: 3px\0;
+	border: none;
+	outline: none;
+}
+
+.loginbox input.code {
+	background: url(../images/login/ico.gif) no-repeat 0 -46px;
+	height: 23px;
+	font-size: 14px;
+	color: #a0a0a0;
+	padding: 0 20px 0 25px;
+	margin: 8px 0 0 8px;
+	*padding-top: 3px;
+	padding-top: 3px\0;
+	border: none;
+	outline: none;
+}
+
+.loginbox label {
+	background: url(../images/login/inputbg.png) no-repeat 0 0;
+	display: block;
+	width: 349px;
+	height: 40px;
+	margin-bottom: 15px;
+}
+
+.loginbox label.code {
+	float: left;
+	background: url(../images/login/codebg.png) no-repeat 0 0;
+	width: 201px;
+}
+
+.logincon {
+	width: 390px;
+	height: 261px;
+	padding: 160px 0 0 70px;
+	margin: 0 auto;
+}
+
+.codebox {
+	float: left;
+}
+
+.freshico {
+	float: left;
+	background: url(../images/login/freshico.png) no-repeat;
+	width: 22px;
+	height: 22px;
+	margin: 8px 0 0 15px;
+	display: inline-block;
+	font-size: 0;
+}
+
+.loginbtnarea {
+	clear: both;
+}
+
+.loginbtn {
+	background: url(../images/login/loginbtn.png) no-repeat;
+	width: 103px;
+	height: 35px;
+	border: none;
+	color: #fff;
+	font-size: 15px;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.findpw {
+	height: 25px;
+	padding-top: 10px;
+	margin-left: 80px;
+	display: inline-block;
+	color: #333
+}
+
+.findpw:hover {
+	text-decoration: underline;
+}
+
+.errtip {
+	position: absolute;
+	color: #e82a28;
+	margin-left: 0;
+	margin-top: -23px;
+	background: url(../images/login/warning.png) no-repeat left center;
+	padding-left: 23px;
+}
+/*404-500*/
+.erro404, .erro500 {
+	background: url(../images/erro.jpg) no-repeat 0 70px;
+	width: 509px;
+	height: 131px;
+	margin: 0 auto;
+	padding-top: 290px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.erro500 {
+	background: url(../images/erro.jpg) no-repeat -509px 70px;
+}
+
+.erro404 a, .erro500 a {
+	text-decoration: underline;
+}
