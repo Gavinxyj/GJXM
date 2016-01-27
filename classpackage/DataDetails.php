@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  *@file        DataDetails.class.php
@@ -21,6 +20,8 @@ class DataDetails
 	private $address	= "";
 	
 	private $area		= "";
+	
+	private $name		= "";//光交箱名称
 	
 	private $road   	= "";
 	
@@ -317,6 +318,251 @@ class DataDetails
 		$this->smsCount = $smsCount;
 	}
 
+	/**
+	 * @param string $name
+	 */
+	public function setName ( $name )
+	{
+		$this->name = $name;
+	}
+
+	/**
+	 * @return the $name
+	 */
+	public function getName ()
+	{
+		return $this->name;
+	}
+
+	public static function getNeedData()
+	{
+		$strSql = "SELECT t_data.f_code,t1.f_name AS f_area,t2.f_name AS f_road,t_data.f_address,t_data.f_name,t3.f_fullname AS f_owner,t4.f_fullname AS f_worker,t_data.f_open_time,t_data.f_close_time,t_data.f_create_time,t5.f_title AS f_sel_worker,t6.f_title AS f_sel_owner FROM t_data JOIN t_area t1 ON t1.f_id=t_data.f_area JOIN t_area t2 ON t2.f_id=t_data.f_road LEFT JOIN t_users t3 ON t3.f_id=t_data.f_owner LEFT JOIN t_users t4 ON t4.f_id=t_data.f_worker LEFT JOIN t_rank t5 ON t5.f_id=t_data.f_sel_worker LEFT JOIN t_rank t6 ON t6.f_id=t_data.f_sel_owner WHERE t_data.f_close_time IS NULL OR (t_data.f_sms_count>0 AND t_data.f_sel_owner =0) ORDER BY t_data.f_id";
+		
+		$rs = DbOperator::queryAll($strSql);
+		
+		$beanArray = array();
+		
+		$count = 0;
+		if(!empty($rs))
+		{
+			foreach ($rs as $arrayIndex)
+			{
+				$dataDetails = new DataDetails();
+		
+				$dataDetails->id		= (1 + $count);
+				$dataDetails->code 		= $arrayIndex['F_CODE'];
+				$dataDetails->area  	= $arrayIndex['F_AREA'];
+				$dataDetails->road    	= $arrayIndex['F_ROAD'];
+				$dataDetails->address 	= $arrayIndex['F_ADDRESS'];
+				$dataDetails->name		= $arrayIndex['F_NAME'];
+				if(empty($arrayIndex['F_OWNER']))
+				{
+					$dataDetails->owner = "未知";
+				}
+				else 
+				{
+					$dataDetails->owner	= $arrayIndex['F_OWNER'];
+				}
+				if(empty($arrayIndex['F_WORKER']))
+				{
+					$dataDetails->worker = "未知";
+				}
+				else
+				{
+					$dataDetails->worker		= $arrayIndex['F_WORKER'];
+				}
+				$dataDetails->openTime	= $arrayIndex['F_OPEN_TIME'];
+				if(empty($arrayIndex['F_CLOSE_TIME']))
+				{
+					$dataDetails->closeTime = "尚未关闭";
+				}
+				else 
+				{
+					$dataDetails->closeTime = $arrayIndex['F_CLOSE_TIME'];
+				}
+				
+				if(empty($arrayIndex['F_SEL_WORKER']))
+				{
+					$dataDetails->selWorker = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selWorker = $arrayIndex['F_SEL_WORKER'];
+				}
+				if(empty($arrayIndex['F_SEL_OWNER']))
+				{
+					$dataDetails->selOwner  = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selOwner  = $arrayIndex['F_SEL_OWNER'];
+				}
+				$dataDetails->createTime= $arrayIndex['F_CREATE_TIME'];
+				
+				$beanArray[$count++] = $dataDetails;
+			}
+			
+			return $beanArray;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	public static function getDealed() 
+	{
+		$strSql = "select t_data.f_code,t1.f_name as f_area,t2.f_name as f_road,t_data.f_address,t_data.f_name,t3.f_fullname as f_owner,t4.f_fullname as f_worker,t_data.f_open_time,t_data.f_close_time,t_data.f_create_time,t5.f_title as f_sel_worker,t6.f_title as f_sel_owner from t_data join t_area t1 on t1.f_id=t_data.f_area join t_area t2 on t2.f_id=t_data.f_road left join t_users t3 on t3.f_id=t_data.f_owner left join t_users t4 on t4.f_id=t_data.f_worker left join t_rank t5 on t5.f_id=t_data.f_sel_worker left join t_rank t6 on t6.f_id=t_data.f_sel_owner where t_data.f_sel_owner!=0 AND t_data.f_sms_count>0 AND t_data.f_close_time IS NOT NULL order by t_data.f_id";
+		
+		$rs = DbOperator::queryAll($strSql);
+		
+		$beanArray = array();
+		
+		$count = 0;
+		
+		if(!empty($rs))
+		{
+			foreach ($rs as $arrayIndex)
+			{
+				$dataDetails = new DataDetails();
+		
+				$dataDetails->id		= (1 + $count);
+				$dataDetails->code 		= $arrayIndex['F_CODE'];
+				$dataDetails->area  	= $arrayIndex['F_AREA'];
+				$dataDetails->road    	= $arrayIndex['F_ROAD'];
+				$dataDetails->address 	= $arrayIndex['F_ADDRESS'];
+				$dataDetails->name		= $arrayIndex['F_NAME'];
+				if(empty($arrayIndex['F_OWNER']))
+				{
+					$dataDetails->owner = "未知";
+				}
+				else 
+				{
+					$dataDetails->owner	= $arrayIndex['F_OWNER'];
+				}
+				if(empty($arrayIndex['F_WORKER']))
+				{
+					$dataDetails->worker = "未知";
+				}
+				else
+				{
+					$dataDetails->worker		= $arrayIndex['F_WORKER'];
+				}
+				$dataDetails->openTime	= $arrayIndex['F_OPEN_TIME'];
+				if(empty($arrayIndex['F_CLOSE_TIME']))
+				{
+					$dataDetails->closeTime = "尚未关闭";
+				}
+				else 
+				{
+					$dataDetails->closeTime = $arrayIndex['F_CLOSE_TIME'];
+				}
+				
+				if(empty($arrayIndex['F_SEL_WORKER']))
+				{
+					$dataDetails->selWorker = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selWorker = $arrayIndex['F_SEL_WORKER'];
+				}
+				if(empty($arrayIndex['F_SEL_OWNER']))
+				{
+					$dataDetails->selOwner  = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selOwner  = $arrayIndex['F_SEL_OWNER'];
+				}
+				$dataDetails->createTime= $arrayIndex['F_CREATE_TIME'];
+				
+				$beanArray[$count++] = $dataDetails;
+			}
+				
+			return $beanArray;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	public static function getHistoryDeal()
+	{
+		$strSql = "select t_data.f_code,t1.f_name as f_area,t2.f_name as f_road,t_data.f_address,t_data.f_name,t3.f_fullname as f_owner,t4.f_fullname as f_worker,t_data.f_open_time,t_data.f_close_time,t_data.f_create_time,t5.f_title as f_sel_worker,t6.f_title as f_sel_owner from t_data join t_area t1 on t1.f_id=t_data.f_area join t_area t2 on t2.f_id=t_data.f_road left join t_users t3 on t3.f_id=t_data.f_owner left join t_users t4 on t4.f_id=t_data.f_worker left join t_rank t5 on t5.f_id=t_data.f_sel_worker left join t_rank t6 on t6.f_id=t_data.f_sel_owner where 1 order by t_data.f_id desc";
+		
+		$rs = DbOperator::queryAll($strSql);
+		
+		$beanArray = array();
+		
+		$count = 0;
+		
+		if(!empty($rs))
+		{
+			foreach ($rs as $arrayIndex)
+			{
+				$dataDetails = new DataDetails();
+		
+				$dataDetails->id		= (1 + $count);
+				$dataDetails->code 		= $arrayIndex['F_CODE'];
+				$dataDetails->area  	= $arrayIndex['F_AREA'];
+				$dataDetails->road    	= $arrayIndex['F_ROAD'];
+				$dataDetails->address 	= $arrayIndex['F_ADDRESS'];
+				$dataDetails->name		= $arrayIndex['F_NAME'];
+				if(empty($arrayIndex['F_OWNER']))
+				{
+					$dataDetails->owner = "未知";
+				}
+				else 
+				{
+					$dataDetails->owner	= $arrayIndex['F_OWNER'];
+				}
+				if(empty($arrayIndex['F_WORKER']))
+				{
+					$dataDetails->worker = "未知";
+				}
+				else
+				{
+					$dataDetails->worker		= $arrayIndex['F_WORKER'];
+				}
+				$dataDetails->openTime	= $arrayIndex['F_OPEN_TIME'];
+				if(empty($arrayIndex['F_CLOSE_TIME']))
+				{
+					$dataDetails->closeTime = "尚未关闭";
+				}
+				else 
+				{
+					$dataDetails->closeTime = $arrayIndex['F_CLOSE_TIME'];
+				}
+				
+				if(empty($arrayIndex['F_SEL_WORKER']))
+				{
+					$dataDetails->selWorker = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selWorker = $arrayIndex['F_SEL_WORKER'];
+				}
+				if(empty($arrayIndex['F_SEL_OWNER']))
+				{
+					$dataDetails->selOwner  = "尚未处理";
+				}
+				else 
+				{
+					$dataDetails->selOwner  = $arrayIndex['F_SEL_OWNER'];
+				}
+				$dataDetails->createTime= $arrayIndex['F_CREATE_TIME'];
+				
+				$beanArray[$count++] = $dataDetails;
+			}
+		
+			return $beanArray;
+		}
+		else
+		{
+			return null;
+		}
+	}
 }
 
 ?>

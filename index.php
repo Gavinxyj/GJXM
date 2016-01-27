@@ -10,6 +10,7 @@
  *
  */
     require_once './init.php';
+    require_once './classpackage/DataDetails.php';
 	require_once './classpackage/User.class.php';
 	
 	if(isset($_SESSION['userId']) && isset($_SESSION['rank']))
@@ -41,6 +42,11 @@
 		}*/
 		//
 		
+		//加载所有用户
+		User::getAllRecord();
+		
+		$len = count(User::getBeanArray());
+		
 		$bRet = User::checkLogin($_POST['userId'], $_POST['pwd']);
 		
 		if( $bRet == true )
@@ -51,10 +57,22 @@
 		    
 		    if($bRet == true)
 		    {
-		    	$userRecord = User::getAllRecord();
+		    	//获取待处理的箱门
+		    	$waitDeal = DataDetails::getNeedData();
+		    	//获取处理完成的箱门
+		    	$dealed   = DataDetails::getDealed();
+		    	//获取处理的历时记录
+		    	$hisDeal  = DataDetails::getHistoryDeal();
 		    	
-		    	$smarty->assign("userRecord",$userRecord);
-		        $smarty->display('welcome.html');
+		    	$_SESSION['userId']=$_POST['userId'];
+		    	
+		    	$smarty->assign("waitDeal",$waitDeal);
+		    	$smarty->assign("dealed",$dealed);
+		    	$smarty->assign("hisDeal",array_slice($hisDeal,0,25));
+		    	
+		        $smarty->display('monitor.html');
+		        
+		       
 		    }
 		}
 		else 

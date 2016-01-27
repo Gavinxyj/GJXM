@@ -21,12 +21,13 @@ class DbOperator
 		{
 			if ( self::$db == null )
 			{
-				self::$db = new PDO ( "mysql:host=" . localhost . ";dbname=" . test, root, root, array (
+				self::$db = new PDO ( "mysql:host=" . localhost . ";dbname=" . gjxms, root, root, array (
 						PDO::ATTR_PERSISTENT => true 
 				) );
 				
 				self::$db->setAttribute ( PDO::ATTR_CASE, PDO::CASE_UPPER );
-			
+				self::$db->exec("SET NAMES UTF8");
+				self::$db->exec("set sql_mode='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
 			}
 			
 			return self::$db;
@@ -53,11 +54,11 @@ class DbOperator
 	{
 		try
 		{
-			$nRet = DbOperator::getInstance ()->beginTransaction ();
+			$nRet = self::getInstance ()->beginTransaction ();
 			
 			if ( $nRet == true )
 			{
-				$stms = DbOperator::getInstance ()->prepare ( $strSql );
+				$stms = self::getInstance ()->prepare ( $strSql );
 					
 				foreach ( $array as $value )
 				{
@@ -65,7 +66,7 @@ class DbOperator
 				}
 			}
 			
-			$nRet = DbOperator::getInstance ()->commit ();
+			$nRet = self::getInstance ()->commit ();
 			
 			return $nRet;
 		
@@ -89,7 +90,7 @@ class DbOperator
 	{
 		try
 		{
-			$stms = DbOperator::getInstance ()->prepare ( $strSql );
+			$stms = self::getInstance ()->prepare ( $strSql );
 			
 			$bRet = $stms->execute ( $array );
 			
@@ -107,7 +108,7 @@ class DbOperator
 	{
 		try
 		{
-			$stms = DbOperator::getInstance ()->prepare ( $strSql );
+			$stms = self::getInstance ()->prepare ( $strSql );
 			
 			$stms->execute ( $array );
 			
@@ -127,7 +128,7 @@ class DbOperator
 	{
 		try
 		{
-			$stms = DbOperator::getInstance ()->prepare ( $strSql );
+			$stms = self::getInstance ()->prepare ( $strSql );
 				
 			$stms->execute ();
 				

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 5.01 Transitional//EN" "http://www.w3.org/TR/html5/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+    <tr>
+    <td>
+共{$page.count}条数据 每页{$page.pagesize}条 共{$page.pagecount}页 当前第{$page.page}页
+</td>
+<td>
+{if $page.first eq 1}
+<a href={$page.baseurl}>首页</a>
+{/if}
+{if $page.pre eq 1}
+<a href="{$page.baseurl}&page={$page.page-1}">上一页</a>
+{else}
+上一页
+{/if}
+{foreach from=$page.pagelist item=vols}
+    {if $vols.link eq 1}
+<a href={$page.baseurl}&page={$vols.page}>[{$vols.page}]</a>
+{else}
+[{$vols.page}]
+{/if}
+{/foreach}
+{if $page.next eq 1}
+<a href={$page.baseurl}&page={$page.page-1}>下一页</a>
+{else}
+下一页
+{/if}
+{if $page.last eq 1}
+<a href={$page.baseurl}&page={$page.pagecount}>尾页</a>
+{else}
+尾页
+{/if}
+</td>
+</tr>
+</table>
+</body>
+</html>

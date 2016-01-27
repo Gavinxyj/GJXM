@@ -35,6 +35,8 @@ class User
     
     private $head     = "";
     
+    private static $beanArray = array();
+    
  /**
      * @return the $fullName
      */
@@ -203,6 +205,14 @@ class User
 		return $this->head;
 	}
 
+	/**
+	 * @return the $beanArray
+	 */
+	public static function getBeanArray ()
+	{
+		return self::$beanArray;
+	}
+
 	public static function checkLogin($userName, $password)
     {
         try 
@@ -258,8 +268,6 @@ class User
     	{
     		$strSql = "select f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users";
     		
-    		$beanArray = array();
-    		
     		$rs = DbOperator::queryAll($strSql);
     		
     		$count = 0;
@@ -281,10 +289,8 @@ class User
     			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
     			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
     			 
-    			 $beanArray[$count++]= $user;
+    			 self::$beanArray[$count++]= $user;
     		}
-    		
-    		return $beanArray;
     		
     	} catch (Exception $e) 
     	{

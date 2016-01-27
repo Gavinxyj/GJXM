@@ -3362,6 +3362,7 @@
         var settings = $.extend(defaults, options);
 
         $(this).each(function() {
+        	
             var $this = $(this);
             var tabHead = $this.find(".pui-tab-head li");
             var tabBox = $this.find(".pui-tab-box");   
@@ -3376,6 +3377,7 @@
                 var speed    = settings.speed;
                 var showMode = settings.showMode; 
                 var ajaxURL  = thisHead.attr("tab-ajax-url");
+              
                 var cached   = thisHead.attr("tab-ajax-cached"); 
 
                 if(typeof(cached) == "undefined" || cached == "") {
@@ -3408,7 +3410,7 @@
                     //console.log(boxList.html(), index * box[0].offsetWidth);
 
                     scrollbox.outerHeight(box.outerHeight());
-                    boxList.outerWidth(boxListWidth + 50).animate({
+                    boxList.outerWidth(boxListWidth).animate({
                         marginLeft : "-"+(index * box.outerWidth()) + "px"
                     }, speed);
                 }           
@@ -3426,7 +3428,7 @@
                     //console.log(boxList.html(), index * box.outerHeight());
 
                     scrollbox.outerHeight(box.outerHeight());
-                    boxList.outerHeight(boxListHeight + 50).animate({
+                    boxList.outerHeight(boxListHeight).animate({
                         marginTop : "-"+(index * box.outerHeight()) + "px"
                     }, speed);
                 }
@@ -3468,7 +3470,7 @@
             var index  = $this.index();
             var tabBox = $this.parent().parent().find(".pui-tab-box"); 
             var cached = $this.attr("tab-ajax-cached"); 
-
+           
             if(typeof(cached) == "undefined" || cached == "") {
                 cached = settings.cached;
             } 

@@ -18908,8 +18908,8 @@ html.no-touch .pui-tab-head > li:hover, .pui-tab-head > li.hover {
 
 .pui-tab-box {
   display: none;
-  padding: 10px 0;
-  padding: 1rem 0;
+  padding: 0px;
+  padding: 0px;
 }
 
 .pui-tab-foot {
