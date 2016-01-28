@@ -19,14 +19,12 @@ if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 
 if ( isset ( $_GET ['active'] ) && $_GET ['active'] == "total" )
 {
-	User::getAllRecord ();
 	$userBean = User::getBeanArray ();
 	$smarty->assign( "userBean", $userBean );
 	$smarty->display ( 'users.html' );
 }
 else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "today")
 {
-	User::getAllRecord ();
 	$arrayBean = User::getBeanArray ();
 	
 	$todayBean = array();
@@ -44,7 +42,6 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "today")
 }
 else if (isset ( $_GET ['active'] ) && $_GET ['active'] == "owner")
 {
-	User::getAllRecord ();
 	$userBean = User::getBeanArray ();
 	$ownerBean = array();
 	$count = 0;

@@ -11,7 +11,6 @@
  */
     require_once './init.php';
     require_once './classpackage/DataDetails.php';
-	require_once './classpackage/User.class.php';
 	
 	if(isset($_SESSION['userId']) && isset($_SESSION['rank']))
 	{	
@@ -41,11 +40,6 @@
 			exit;
 		}*/
 		//
-		
-		//加载所有用户
-		User::getAllRecord();
-		
-		$len = count(User::getBeanArray());
 		
 		$bRet = User::checkLogin($_POST['userId'], $_POST['pwd']);
 		

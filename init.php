@@ -9,6 +9,8 @@
  *@copyright(c) 扬州格佳科技有限公司
  *
  */
+	require_once './classpackage/User.class.php';
+	require_once './classpackage/Area.class.php';
 	session_start();
 	header('Content-type: text/html; charset=utf-8');
 	require_once(dirname(dirname(__FILE__)).'/GJXM/smarty/Smarty.class.php');
@@ -17,4 +19,6 @@
 	$smarty->compile_dir  = dirname(__FILE__)."/templates_c";
 	$smarty->config_dir   = dirname(__FILE__)."/configs";
 	$smarty->caching = 0;
+	User::getAllRecord ();
+	Area::getAllAreaRecord();
 ?>

@@ -25,6 +25,8 @@ class Area
 
 	private $time 		= "";
 
+	private static $beanArray   = array();
+	
 	/**
 	 *
 	 * @return the $id
@@ -131,6 +133,53 @@ class Area
 	public function setTime ( $time )
 	{
 		$this->time = $time;
+	}
+	
+	/**
+	 * @return the $beanArry
+	 */
+	public static function getBeanArray ()
+	{
+		return self::$beanArray;
+	}
+
+	public static function getAllAreaRecord()
+	{
+		try
+		{
+			$strSql = "select f_parent,f_name,f_fullname,f_phone,f_time from t_area";
+		
+			$rs = DbOperator::queryAll($strSql);
+		
+			$count = 0;
+		
+			foreach ( $rs as $arrayIndex )
+			{
+				$area = new Area();
+				
+				$area->id		 = (1 + $count);
+				
+				if($arrayIndex['F_PARENT'] == 0)
+				{
+					$area->parent = "扬州";
+				}
+				else 
+				{
+					$area->parent = $arrayIndex['F_PARENT'];
+				}
+				$area->name 	 = $arrayIndex['F_NAME'];
+				$area->fullName  = $arrayIndex['F_FULLNAME'];
+				$area->phone     = $arrayIndex['F_PHONE'];
+				$area->time      = $arrayIndex['F_TIME'];
+		
+				self::$beanArray[$count++]= $area;
+			}
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
 	}
 }
 

@@ -21,7 +21,7 @@ class DbOperator
 		{
 			if ( self::$db == null )
 			{
-				self::$db = new PDO ( "mysql:host=" . localhost . ";dbname=" . gjxms, root, root, array (
+				self::$db = new PDO ( "mysql:host=" . localhost . ";dbname=" . gjxms, root, 123456, array (
 						PDO::ATTR_PERSISTENT => true 
 				) );
 				
