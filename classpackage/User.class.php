@@ -265,7 +265,8 @@ class User
     public static function getAllRecord()
     {
     	try 
-    	{
+    	{	
+    		
     		$strSql = "select f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users";
     		
     		$rs = DbOperator::queryAll($strSql);
@@ -274,6 +275,7 @@ class User
     		
     		foreach ( $rs as $arrayIndex )
     		{
+    			
     			 $user = new User();
     			 
     			 $user->userName  = $arrayIndex['F_USERNAME'];
