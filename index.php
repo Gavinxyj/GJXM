@@ -11,7 +11,7 @@
  */
     require_once './init.php';
     require_once './classpackage/DataDetails.php';
-	
+    require_once './classpackage/User.class.php';
 	if(isset($_SESSION['userId']) && isset($_SESSION['rank']))
 	{	
 		if($_SESSION['rank']=="1")//系统管理员
@@ -40,7 +40,7 @@
 			exit;
 		}*/
 		//
-		
+		User::getAllRecord();
 		$bRet = User::checkLogin($_POST['userId'], $_POST['pwd']);
 		
 		if( $bRet == true )

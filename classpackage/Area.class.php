@@ -9,7 +9,7 @@
  *@copyright(c) 扬州格佳科技有限公司
  *
  */
- 
+require_once 'Db.class.php';
 class Area
 {
 
@@ -25,8 +25,6 @@ class Area
 
 	private $time 		= "";
 
-	private static $beanArray   = array();
-	
 	/**
 	 *
 	 * @return the $id
@@ -135,14 +133,6 @@ class Area
 		$this->time = $time;
 	}
 	
-	/**
-	 * @return the $beanArry
-	 */
-	public static function getBeanArray ()
-	{
-		return self::$beanArray;
-	}
-
 	public static function getAllAreaRecord()
 	{
 		try
@@ -152,7 +142,9 @@ class Area
 			$rs = DbOperator::queryAll($strSql);
 		
 			$count = 0;
-		
+			
+			$beanArray = array();
+			
 			foreach ( $rs as $arrayIndex )
 			{
 				$area = new Area();
@@ -172,8 +164,10 @@ class Area
 				$area->phone     = $arrayIndex['F_PHONE'];
 				$area->time      = $arrayIndex['F_TIME'];
 		
-				self::$beanArray[$count++]= $area;
+				$beanArray[$count++]= $area;
 			}
+			
+			return $beanArray;
 		
 		} catch (Exception $e)
 		{

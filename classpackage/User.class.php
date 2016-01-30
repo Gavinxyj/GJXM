@@ -13,6 +13,8 @@ require_once 'Db.class.php';
 
 class User
 {
+	private $id 	  = "";
+	
 	private $userName = "";
 	
 	private $password = "";
@@ -213,6 +215,22 @@ class User
 		return self::$beanArray;
 	}
 
+	/**
+	 * @return the $id
+	 */
+	public function getId ()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param string $head
+	 */
+	public function setHead ( $head )
+	{
+		$this->head = $head;
+	}
+
 	public static function checkLogin($userName, $password)
     {
         try 
@@ -267,7 +285,7 @@ class User
     	try 
     	{	
     		
-    		$strSql = "select f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users";
+    		$strSql = "select f_id,f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users order by f_id";
     		
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -278,6 +296,7 @@ class User
     			
     			 $user = new User();
     			 
+    			 $user->id		  = $arrayIndex['F_ID'];
     			 $user->userName  = $arrayIndex['F_USERNAME'];
     			 $user->password  = $arrayIndex['F_PASSWORD'];
     			 $user->fullName  = $arrayIndex['F_FULLNAME'];

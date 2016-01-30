@@ -112,7 +112,7 @@ class DbOperator
 			
 			$stms->execute ( $array );
 			
-			$rs = $stms->fetch ();
+			$rs = $stms->fetch (PDO::FETCH_ASSOC);
 			
 			return $rs;
 		
@@ -132,7 +132,7 @@ class DbOperator
 				
 			$stms->execute ();
 				
-			$rs = $stms->fetchAll ();
+			$rs = $stms->fetchAll (PDO::FETCH_ASSOC);
 				
 			return $rs;
 		

@@ -10,6 +10,7 @@
 *
 */
 require_once 'init.php';
+require_once './classpackage/Area.class.php';
 if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 {
 	echo "<script>alert('timeout or logout');parent.location.href='index.php'</script>";
@@ -18,7 +19,8 @@ if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 
 if(isset ( $_GET ['active'] ) && $_GET ['active'] == "total")
 {
-	$areaBean = Area::getBeanArray ();
+	
+	$areaBean = Area::getAllAreaRecord();
 	
 	$totalBean = array();
 	
