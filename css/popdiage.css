@@ -238,7 +238,7 @@ input.btn {
 .theme-popover {
 	z-index:9999;
 	position:fixed;
-	top:30%;
+	top:40%;
 	left:60%;
 	width:400px;
 	height:460px;

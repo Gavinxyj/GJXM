@@ -244,8 +244,47 @@ class Box
         $this->time = $time;
     }
 
-   
-    
+    public static function getBoxbyName($id)
+    {
+    	try
+    	{
+    	
+    		$strSql = "select t_box.f_code,t_box.f_address,t_box.f_status,t_users.f_fullname,t1.f_name as f_area,t2.f_name as f_road from t_box join t_users on t_users.f_id=t_box.f_user join t_area t1 on t1.f_id=t_box.f_area join t_area t2 on t2.f_id=t_box.f_road where t_box.f_user='{$id}'";
+    	
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$beanArray = array();
+    		$count = 0;
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			$box = new Box();
+    			
+    			$box->id		= (1 + $count);
+    			$box->code		= $arrayIndex['F_CODE'];
+    			$box->address	= $arrayIndex['F_ADDRESS'];
+    			if($arrayIndex['F_STATUS'] == 0)
+    			{
+    				$box->status = "<strong>关闭</strong>";
+    			}
+    			else 
+    			{
+    				$box->status	= "<strong style = 'color:red'>打开</strong>";
+    			}
+    			$box->user		= $arrayIndex['F_FULLNAME'];
+    			$box->area		= $arrayIndex['F_AREA'];
+    			$box->road		= $arrayIndex['F_ROAD'];
+    			
+    			$beanArray[$count++] = $box;
+    		}
+    		
+    		return $beanArray;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+    }
 }
 
 ?>

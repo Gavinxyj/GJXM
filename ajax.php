@@ -13,7 +13,7 @@ require_once './classpackage/Db.class.php';
 if(isset($_GET['id']))
 {
 	
-	$strUserSql = "select f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users where f_id = ? order by f_id";
+	$strUserSql = "select f_id,f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_head_phone,f_boss_phone,f_time,f_last_login,f_last_ip,f_last_time from t_users where f_id = ?";
 	
 	$strRankSql = "select f_id,f_title from t_rank where f_type=1";
 	

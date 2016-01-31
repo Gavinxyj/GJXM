@@ -67,7 +67,7 @@
 								删除 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-primary"
-								onclick="setRank()" {if $rs->getRank()==1}disabled{/if}>
+								onclick="location.href='users.php?active=setRank&id={$rs->getId()}'" {if $rs->getRank()==1}disabled{/if}>
 								权限设置 <span class="arrow-down"></span>
 							</button>
 						</td>
@@ -87,21 +87,20 @@
 			<h3  >员工信息修改</h3>
 		</div>
 		<div class="theme-popbod dform">
-			<form class="theme-signin" name="loginform" action="" method="post">
+			<form class="theme-signin" name="loginform" action="users.php" method="post">
                 <ol>
-                 	 <li><strong>姓名：</strong><input type="text" id = "name" name="log" value="lanrenzhijia" size="20" /></li>
-                     <li><strong>用户名：</strong><input type="text" id = "userName" name="log" value="lanrenzhijia" size="20" /></li>
+                	 <li style = "display : none"><input  id = "id" name = "id"/></li>
+                 	 <li><strong>姓名：</strong><input type="text" id = "name" name="name" value="" size="20" /></li>
+                     <li><strong>用户名：</strong><input type="text" id = "userName" name="userName" value="" size="20" /></li>
                      <li><strong>密码：</strong><input type="password" id = "pwd" name="pwd" value="***" size="20" /></li>
                      <li><strong>确认密码：</strong><input type="password" id = "verifyPwd" name="pwd" /></li>
-                     <li><strong>电话：</strong><input type="text" id = "tel" name="log"/></li>
+                     <li><strong>电话：</strong><input type="text" id = "tel" name="tel"/></li>
                      <li><strong>权限：</strong>
-	                     <select id = "ad">
-	                    	 <option value="1">管理员</option>
+	                     <select id = "ad" name = "rank" onchange = "showLeader(this.options[this.selectedIndex].text)">
 	                     </select>
                      </li>
-                      <li><strong>上级主任：</strong>
-	                     <select id = "leader">
-	                    	 <option value="1">管理员</option>
+                      <li id = "boss" style = "display : none"><strong>上级主任：</strong>
+	                     <select id = "leader" name = "boss">
 	                     </select>
                      </li>
                      <li><input class="btn btn-primary" type="submit" name="submit" value="确认修改" /></li>
