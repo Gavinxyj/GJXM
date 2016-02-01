@@ -320,6 +320,156 @@ class User
     	}
     }
 
+    public static function updateRecord($arrayBean)
+    {
+    	
+    	try
+    	{
+    	
+    		$upSql = "update t_users set f_username = ?,f_password = ?, f_fullname = ?, f_phone = ?, f_rank = ?,f_head = ? where f_id = ?";
+    	
+    		$bRet = DbOperator::executeArraySql($upSql, array($arrayBean));
+    		
+    		return $bRet;
+    		
+    	
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+    }
+	public static function insertRecord($arrayBean)
+	{
+		try
+    	{  	
+    		$insertSql = "insert into t_users(f_username,f_password,f_fullname,f_phone,f_rank,f_head)values(?,?,?,?,?,?)";
+    	
+    		$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
+    		
+    		return $bRet;
+    		
+    	
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getManager()
+	{
+		try 
+    	{	
+    		
+    		$strSql = "Select t_users.f_id,t_users.f_username,t_users.f_fullname,t_users.f_rank,t_rank.f_title as f_rankname,t_users.f_phone,t_users.f_last_login,t_users.f_last_time,t_users.f_last_ip,t_users.f_time from t_users join t_rank on t_rank.f_id=t_users.f_rank where f_rank='1' or t_users.f_rank='3' order by f_id";
+    		
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$count = 0;
+    		
+			$beanArray = array();
+			
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			
+    			 $user = new User();
+    			 
+    			 $user->id		  = $arrayIndex['F_ID'];
+    			 $user->userName  = $arrayIndex['F_USERNAME']; 			
+    			 $user->fullName  = $arrayIndex['F_FULLNAME'];
+    			 $user->phone     = $arrayIndex['F_PHONE'];
+    			 $user->rank      = $arrayIndex['F_RANKNAME'];		
+    			 $user->time      = $arrayIndex['F_TIME'];
+    			 $user->lastLogin = $arrayIndex['F_LAST_LOGIN'];
+    			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
+    			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
+    			 
+    			 $beanArray[$count++]= $user;
+    		}
+    		return $beanArray;
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getOperator()
+	{
+		try 
+    	{	
+    		
+    		$strSql = "Select t_users.f_id,t_users.f_username,t_users.f_fullname,t_users.f_rank,t_rank.f_title as f_rankname,t_users.f_phone,t_users.f_last_login,t_users.f_last_time,t_users.f_last_ip,t_users.f_time from t_users join t_rank on t_rank.f_id=t_users.f_rank where t_users.f_rank='2' order by f_id";
+    		
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$count = 0;
+    		
+			$beanArray = array();
+			
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			
+    			 $user = new User();
+    			 
+    			 $user->id		  = $arrayIndex['F_ID'];
+    			 $user->userName  = $arrayIndex['F_USERNAME']; 			
+    			 $user->fullName  = $arrayIndex['F_FULLNAME'];
+    			 $user->phone     = $arrayIndex['F_PHONE'];
+    			 $user->rank      = $arrayIndex['F_RANKNAME'];		
+    			 $user->time      = $arrayIndex['F_TIME'];
+    			 $user->lastLogin = $arrayIndex['F_LAST_LOGIN'];
+    			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
+    			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
+    			 
+    			 $beanArray[$count++]= $user;
+    		}
+    		return $beanArray;
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getInstaller()
+	{
+		try 
+    	{	
+    		
+    		$strSql = "Select t_users.f_id,t_users.f_username,t_users.f_fullname,t_users.f_rank,t_rank.f_title as f_rankname,t_users.f_phone,t_users.f_last_login,t_users.f_last_time,t_users.f_last_ip,t_users.f_time from t_users join t_rank on t_rank.f_id=t_users.f_rank where t_users.f_rank='13' order by f_id";
+    		
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$count = 0;
+    		
+			$beanArray = array();
+			
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			
+    			 $user = new User();
+    			 
+    			 $user->id		  = $arrayIndex['F_ID'];
+    			 $user->userName  = $arrayIndex['F_USERNAME']; 			
+    			 $user->fullName  = $arrayIndex['F_FULLNAME'];
+    			 $user->phone     = $arrayIndex['F_PHONE'];
+    			 $user->rank      = $arrayIndex['F_RANKNAME'];		
+    			 $user->time      = $arrayIndex['F_TIME'];
+    			 $user->lastLogin = $arrayIndex['F_LAST_LOGIN'];
+    			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
+    			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
+    			 
+    			 $beanArray[$count++]= $user;
+    		}
+    		return $beanArray;
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 }
 
 ?>

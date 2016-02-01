@@ -9,6 +9,7 @@
  *@copyright(c) 扬州格佳科技有限公司
  *
  */
+require_once 'Db.class.php';
 class Rank
 {
 	private $id 		= "";
@@ -118,7 +119,40 @@ class Rank
 		$this->time = $time;
 	}
 
-	
+	public static function getAllRecord()
+	{
+		try 
+    	{	
+    		
+    		$strSql = "select f_id,f_type,f_code,f_title,f_desc,f_time from t_rank order by f_id";
+    		
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		$count = 0;
+    		
+			$beanArray = array();
+			
+    		foreach ( $rs as $arrayIndex )
+    		{
+    			
+    			 $rank = new Rank();
+    			 
+    			 $rank->id		  = $arrayIndex['F_ID'];
+    			 $rank->type	  = $arrayIndex['F_TYPE'];
+				 $rank->code	  = $arrayIndex['F_CODE'];
+				 $rank->title	  = $arrayIndex['F_TITLE'];
+				 $rank->desc	  = $arrayIndex['F_DESC'];
+				 $rank->time	  = $arrayIndex['F_TIME'];
+    			 
+    			 $beanArray[$count++]= $rank;
+    		}
+    		return $beanArray;
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 }
 
 ?>

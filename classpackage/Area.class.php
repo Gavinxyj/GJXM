@@ -175,6 +175,38 @@ class Area
 			die();
 		}
 	}
+	
+	public static function getRoadList()
+	{
+		try
+		{
+			$strSql = "SELECT t_area.f_id,t_area.f_name,t.f_name AS f_parent,t_area.f_time FROM t_area JOIN (SELECT * FROM t_area WHERE f_parent=0) t ON t_area.f_parent=t.f_id WHERE t_area.f_parent<>0 ORDER BY t_area.f_id";
+		
+			$rs = DbOperator::queryAll($strSql);
+		
+			$count = 0;
+			
+			$beanArray = array();
+			
+			foreach ( $rs as $arrayIndex )
+			{
+				$area = new Area();
+				
+				$area->id		= $arrayIndex['F_ID'];
+				$area->name 	= $arrayIndex['F_NAME'];
+				$area->parent   = $arrayIndex['F_PARENT'];
+				$area->time	    = $arrayIndex['F_TIME'];		
+				$beanArray[$count++]= $area;
+			}
+			
+			return $beanArray;
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	}
 }
 
 ?>

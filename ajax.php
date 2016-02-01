@@ -32,4 +32,19 @@ if(isset($_GET['id']))
 	
 	echo json_encode($rsUser, JSON_UNESCAPED_UNICODE);
 }
+else if(isset($_GET['active']) && $_GET['active'] == "addStaff")
+{
+	$strRankSql = "select f_id,f_title from t_rank where f_type=1";
+	
+	$strBossSql = "select f_id,f_fullname from t_head where f_boss>0";
+	
+	$rsRank = DbOperator::queryAll($strRankSql);
+	
+	$rsBoss = DbOperator::queryAll($strBossSql);
+	
+	$rs['rank'] = $rsRank;
+	$rs['boss'] = $rsBoss;
+	
+	echo json_encode($rs, JSON_UNESCAPED_UNICODE);
+}
 ?>

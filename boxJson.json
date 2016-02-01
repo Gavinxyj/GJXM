@@ -1,0 +1,25 @@
+[{   
+
+    "id":1,   
+    "text":"光交箱列表",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"新增光交箱",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"光交箱地图",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ }
+ ]  

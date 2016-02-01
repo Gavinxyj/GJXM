@@ -1,0 +1,41 @@
+[{   
+
+    "id":1,   
+    "text":"光路监测器列表",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"新增光路监测器",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"采集器列表",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"新增采集器",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ },
+ {   
+
+    "id":1,   
+    "text":"访问日志",     
+	"attributes":{
+		"url" : "road.php?active=road"
+	}
+ }
+ ]  

@@ -61,12 +61,11 @@ else if (isset ( $_GET ['active'] ) && $_GET ['active'] == "owner")
 	$smarty->display ( 'users.html' );
 	
 }
-else if(isset($_POST['submit']))
+else if(isset($_POST['submit']) && !empty($_POST['id']))
 {
-	$upSql = "update t_users set f_username = ?,f_password = ?, f_fullname = ?, f_phone = ?, f_rank = ?,f_head = ? where f_id = ?";
 	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],$_POST['id']);
 	
-	$bRet = DbOperator::executeArraySql($upSql, array($arrayBean));
+	$bRet = User::updateRecord($arrayBean);
 	
 	if($bRet == true)
 	{
@@ -77,10 +76,36 @@ else if(isset($_POST['submit']))
 	}
 	else 
 	{
-		echo "<script>alert('修改失败');</script>";
+		echo "<script>alert('修改失败');history.back();</script>";
+	}			
+}
+else if(isset($_POST['submit']) && empty($_POST['id']))
+{
+	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss']);
+	
+	$bRet = User::insertRecord($arrayBean);
+	
+	if(bRet == true)
+	{
+		User::getAllRecord ();
+		$userBean = User::getBeanArray ();
+		$smarty->assign( "userBean", $userBean );
+		$smarty->display ( 'users.html' );
 	}
+}
+else if(isset($_POST['submit']) && empty($_POST['id']))
+{
+	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss']);
 	
+	$bRet = User::insertRecord($arrayBean);
 	
+	if(bRet == true)
+	{
+		User::getAllRecord ();
+		$userBean = User::getBeanArray ();
+		$smarty->assign( "userBean", $userBean );
+		$smarty->display ( 'users.html' );
+	}
 }
 else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "setRank")
 {
@@ -95,5 +120,25 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "setRank")
 	{
 		echo "<script>alert('该员工名下没有可管理的光交箱!');history.back();</script>";
 	}
+}
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "manager")
+{
+	$managerBean = User::getManager ();
+	$smarty->assign( "userBean", $managerBean );
+	$smarty->display ( 'users.html' );
+}
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "operator")
+{
+	$operatorBean = User::getOperator ();
+	$smarty->assign( "userBean", $operatorBean );
+	$smarty->display ( 'users.html' );
+}
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "install")
+{
+	$installBean = User::getInstaller ();
+	
+	$smarty->assign( "userBean", $installBean );
+	$smarty->display ( 'users.html' );
+	
 }
 ?>

@@ -1,0 +1,11 @@
+[{   
+
+    "id":1,   
+    "text":"区域列表",     
+	"attributes":{
+		"url" : "area.php?active=total"
+	}
+ }
+ ]  
+
+
