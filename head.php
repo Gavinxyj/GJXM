@@ -29,4 +29,14 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "head")
 	$smarty->assign( "headBean", $headBean );
 	$smarty->display ( 'security.html' );
 }
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "alter")
+{
+	$id = $_GET['id'];
+	
+	$strSql = "select f_id,f_fullname,f_phone,f_boss,f_time from t_head where f_boss = 0";
+    		
+    $rs = DbOperator::queryAll($strSql);
+	
+	echo json_encode($rs, JSON_UNESCAPED_UNICODE);
+}
 ?>
