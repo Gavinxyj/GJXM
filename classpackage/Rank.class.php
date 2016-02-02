@@ -153,6 +153,43 @@ class Rank
     		die();
     	}
 	}
+	
+	public static function getRankById($id)
+	{
+		try 
+    	{	
+    		
+    		$strSql = "select f_title,f_desc from t_rank where f_id = '{$id}'";
+    		
+    		$beanArray = DbOperator::queryAll($strSql);
+    		
+    		
+    		return $beanArray;
+    	} catch (Exception $e) 
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function updateRank($arrayList)
+	{
+		try
+        {
+            $strSql = "update t_rank set f_title=? ,f_desc= ? ,f_time=now() where f_id=?";
+        
+            $rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+            return $rs;
+        
+        } catch (Exception $e)
+        {
+            print "Error: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
+        return $rs;
+	}
 }
 
 ?>

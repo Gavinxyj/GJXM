@@ -285,6 +285,25 @@ class Box
     		die();
     	}
     }
+	
+	public static function deleteBoxById($id)
+	{
+		try
+    	{
+    	
+    		$strSql = "delete from t_box where t_box.f_code=?";
+    	
+    		$bRet = DbOperator::executeArraySql($strSql,array(array($id)));
+    		
+    		
+    		return $bRet;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 }
 
 ?>

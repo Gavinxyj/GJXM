@@ -9549,7 +9549,7 @@ input[type="submit"], input[type="reset"], input[type="button"] {
 }
 
 textarea, .pui-form textarea {
-  width: 99.9%;
+  width: 60%;
   height: 240px;
   padding: 6px;
   padding: 0.6rem;

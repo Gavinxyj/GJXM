@@ -55,9 +55,9 @@
 			<table
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
-				<tbody>
+				<tbody id="rank">
 					{foreach from=$boxBean item=rs}
-					<tr>
+					<tr id = "{$rs->getCode()}">
 						<td width="250">{$rs->getCode()}</td>
 						<td>{$rs->getArea()}</td>
 						<td>{$rs->getRoad()}</td>
@@ -65,9 +65,9 @@
 						<td>{$rs->getUser()}</td>
 						<td>{$rs->getStatus()}</td>
 						<td>
-							<button type="button" class="pui-btn pui-btn-primary theme-login"
-								onclick = "request('{$rs->getId()}')">
-								修改 <span class="arrow-down"></span>
+							<button type="button" class="pui-btn pui-btn-primary"
+								onclick = "deleteByCode('{$rs->getCode()}')">
+								删除 <span class="arrow-down"></span>
 							</button>
 						</td>
 					</tr>

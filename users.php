@@ -11,7 +11,6 @@
  */
 require_once './init.php';
 require_once './classpackage/User.class.php';
-require_once './classpackage/Box.class.php';
 if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 {
 	echo "<script>alert('timeout or logout');parent.location.href='index.php'</script>";
@@ -105,20 +104,6 @@ else if(isset($_POST['submit']) && empty($_POST['id']))
 		$userBean = User::getBeanArray ();
 		$smarty->assign( "userBean", $userBean );
 		$smarty->display ( 'users.html' );
-	}
-}
-else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "setRank")
-{
-	$beanArray = Box::getBoxbyName($_GET['id']);
-	
-	if(!empty($beanArray))
-	{
-		$smarty->assign("boxBean",$beanArray);
-		$smarty->display("rank.html");
-	}
-	else 
-	{
-		echo "<script>alert('该员工名下没有可管理的光交箱!');history.back();</script>";
 	}
 }
 else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "manager")
