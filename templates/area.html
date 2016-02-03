@@ -5,6 +5,7 @@
 <title>光交箱智能门锁监控管理系统</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css" />
 <link href="./css/planeui.css" rel="stylesheet" type="text/css" />
+<link href="./css/popdiage.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css"
 	href="./js/jquery-easyui-1.3.6/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css"
@@ -15,7 +16,6 @@
 <script type="text/javascript"
 	src="./js/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="./js/planeui.js"></script>
-<script type="text/javascript" src="./js/monitor.js"></script>
 </head>
 <body>
 	<div class="pui-tab-container">
@@ -51,8 +51,8 @@
 						<td>{$rs->getParent()}</td>
 						<td>{$rs->getTime()}</td>
 						<td>
-							<button type="button" class="pui-btn pui-btn-primary"
-								onclick="Edit()">
+							<button type="button" class="pui-btn pui-btn-primary theme-login"
+								onclick="alterArea('{$rs->getName()}')">
 								修改 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-error"
@@ -64,11 +64,42 @@
 					{/foreach}
 				</tbody>
 			</table>
-			<button type="button" class="pui-btn pui-btn-secondary pui-btn-block"
-				style="width: 100%" onclick="Delete()" >
+			<button type="button" class="pui-btn pui-btn-secondary pui-btn-block theme-login"
+				style="width: 100%" onclick="addArea()" >
 				新增区域 <span class="arrow-down"></span>
 			</button>
 		</div>
 	</div>
+	<div class="theme-popover" style = "height : 250px">
+		<div class="pui-btn pui-btn-secondary pui-btn-block theme-poptit">
+			<a href="javascript:;" title="关闭" class="close">×</a>
+			<h3 id = "title">区域信息修改</h3>
+		</div>
+		<div class="theme-popbod dform">
+			<form class="theme-signin" name="loginform" action="" method="post">
+                <ol>
+                	 <li style = "display : none"><input  id = "id" name = "id"/></li>
+                     <li><strong>区域选择：</strong>
+	                     <select id = "province" name="province3" style = "width : 100px">
+	                     </select>
+						 <select id = "city" name = "city3" style = "width : 100px">
+	                     </select>
+						  <select id = "area" name = "area3" style = "width : 100px">
+	                     </select>
+                     </li>
+					 <li style = "padding-top : 10px"><strong>街道地址：</strong><input type = "text" id = "id" name = "id"/></li>					 
+                     <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认修改" /></li>
+                </ol>
+           </form>
+		</div>
+	</div>
+	<div class="theme-popover-mask"></div>
+	<script type="text/javascript" src="./js/jquery.min.js">	
+	</script>
+	<script type="text/javascript" src="./js/PCASClass.js">			
+	</script>
+	<script type="text/javascript" defer>	
+		new PCAS("province3","city3","area3");
+	</script>
 </body>
 </html>

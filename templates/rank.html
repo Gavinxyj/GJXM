@@ -20,21 +20,18 @@
 </head>
 <body>
 	<div class="pui-tab-container">
-			<table
-				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
-				style="margin: 0">
-				<tr>
-					<th class="info" >单箱单独授权</th>
-					<th><input type="text" id = "name" name="name" value="" size="20" /></th>
-				</tr>
-			</table>
-			<div class="pui-tab-container">
 		<div class="pui-tab-box" style="display: block;">
 			<table
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
 				<tr class="error">
-					<th colspan="8">以下是此工作人员[{$boxBean[0]->getUser()}]可以安装的光交箱</th>
+					<th colspan="6">以下是此工作人员[{$boxBean[0]->getUser()}]可以安装的光交箱</th>
+					<th style = "text-align : right">
+						<button type="button" class="pui-btn pui-btn-error"
+								onclick = "">
+								添加授权 <span class="arrow-down"></span>
+							</button>
+					</th>
 				</tr>
 			</table>
 			<table
@@ -65,7 +62,7 @@
 						<td>{$rs->getUser()}</td>
 						<td>{$rs->getStatus()}</td>
 						<td>
-							<button type="button" class="pui-btn pui-btn-primary"
+							<button type="button" class="pui-btn pui-btn-error"
 								onclick = "deleteByCode('{$rs->getCode()}')">
 								删除 <span class="arrow-down"></span>
 							</button>

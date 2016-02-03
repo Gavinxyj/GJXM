@@ -33,7 +33,7 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "alter")
 {
 	$id = $_GET['id'];
 	
-	$strSql = "select f_id,f_fullname,f_phone,f_boss,f_time from t_head where f_boss = 0";
+	$strSql = "select f_id,f_fullname,f_phone,f_boss,f_time from t_head where f_id = '{$id}'";
     		
     $rs = DbOperator::queryAll($strSql);
 	

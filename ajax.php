@@ -28,8 +28,7 @@ if(isset($_GET['id']))
 	
 	$rsUser['rank'] = $rsRank;
 	$rsUser['boss'] = $rsBoss;
-	
-	
+		
 	echo json_encode($rsUser, JSON_UNESCAPED_UNICODE);
 }
 else if(isset($_GET['active']) && $_GET['active'] == "addStaff")
