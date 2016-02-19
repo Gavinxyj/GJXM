@@ -21,21 +21,9 @@ if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 if(isset ( $_GET ['active'] ) && $_GET ['active'] == "total")
 {
 	
-	$areaBean = Area::getAllAreaRecord();
+	$areaBean = Area::getAllAreaRecord();		
 	
-	$totalBean = array();
-	
-	$count = 0;
-	
-	foreach ($areaBean as $arrayIndex)
-	{
- 		if($arrayIndex->getParent() == 0)
- 		{
- 			$totalBean[$count++] = $arrayIndex; 
- 		}
-	}
-	
-	$smarty->assign( "areaBean", $totalBean );
+	$smarty->assign( "areaBean", $areaBean );
 	$smarty->display ( 'area.html' );
 }
 else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "ok")
@@ -59,5 +47,18 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "alterArea")
 	$rs = DbOperator::queryAll($strSql);	
 	
     echo json_encode($rs, JSON_UNESCAPED_UNICODE);
+}
+else if( isset ( $_POST['submit'] ) && empty($_POST['id']) )
+{
+	$arrayBean = array($_POST['province3'],$_POST['city3'],$_POST['area3'],$_POST['address'],date('Y-m-d H:i:s',time()));
+
+	$bRet = Area::insertRecord($arrayBean);
+	
+	if(bRet == true)
+	{
+		$areaBean = Area::getAllAreaRecord ();
+		$smarty->assign( "areaBean", $areaBean );
+		$smarty->display ( 'area.html' );
+	}
 }
 ?>

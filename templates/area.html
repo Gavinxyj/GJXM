@@ -32,9 +32,10 @@
 				style="margin: 0">
 				<thead>
 					<tr class="info">
-						<th>ID</th>
-						<th>区域名</th>
-						<th>上级区域</th>
+						<th>省份</th>
+						<th>地市</th>
+						<th>市辖区</th>
+						<th>街道地址：</th>
 						<th>更新时间</th>
 						<th>操作</th>
 					</tr>
@@ -46,9 +47,10 @@
 				<tbody>
 					{foreach from=$areaBean item=rs}
 					<tr>
-						<td>{$rs->getId()}</td>
+						<td>{$rs->getProvince()}</td>
+						<td>{$rs->getCity()}</td>
+						<td>{$rs->getArea()}</td>
 						<td>{$rs->getName()}</td>
-						<td>{$rs->getParent()}</td>
 						<td>{$rs->getTime()}</td>
 						<td>
 							<button type="button" class="pui-btn pui-btn-primary theme-login"
@@ -56,7 +58,7 @@
 								修改 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-error"
-								onclick="Delete()" disabled>
+								onclick="Delete()">
 								删除 <span class="arrow-down"></span>
 							</button>
 						</td>
@@ -76,7 +78,7 @@
 			<h3 id = "title">区域信息修改</h3>
 		</div>
 		<div class="theme-popbod dform">
-			<form class="theme-signin" name="loginform" action="" method="post">
+			<form class="theme-signin" name="loginform" action="area.php" method="post">
                 <ol>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
                      <li><strong>区域选择：</strong>
@@ -87,7 +89,7 @@
 						  <select id = "area" name = "area3" style = "width : 100px">
 	                     </select>
                      </li>
-					 <li style = "padding-top : 10px"><strong>街道地址：</strong><input type = "text" id = "id" name = "id"/></li>					 
+					 <li style = "padding-top : 10px"><strong>街道地址：</strong><input type = "text" id = "address" name = "address"/></li>					 
                      <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认修改" /></li>
                 </ol>
            </form>

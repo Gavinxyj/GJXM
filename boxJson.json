@@ -3,7 +3,7 @@
     "id":1,   
     "text":"光交箱列表",     
 	"attributes":{
-		"url" : "road.php?active=road"
+		"url" : "box.php?active=total"
 	}
  },
  {   

@@ -25,6 +25,11 @@ class Area
 
 	private $time 		= "";
 
+	private $province	= "";
+	
+	private $city		= "";
+	
+	private $area		= "";
 	/**
 	 *
 	 * @return the $id
@@ -133,11 +138,59 @@ class Area
 		$this->time = $time;
 	}
 	
+	/**
+	 * @return the $province
+	 */
+	public function getProvince ()
+	{
+		return $this->province;
+	}
+
+	/**
+	 * @param string $province
+	 */
+	public function setProvince ( $province )
+	{
+		$this->province = $province;
+	}
+
+	/**
+	 * @return the $city
+	 */
+	public function getCity ()
+	{
+		return $this->city;
+	}
+
+	/**
+	 * @param string $city
+	 */
+	public function setCity ( $city )
+	{
+		$this->city = $city;
+	}
+
+	/**
+	 * @return the $area
+	 */
+	public function getArea ()
+	{
+		return $this->area;
+	}
+
+	/**
+	 * @param string $area
+	 */
+	public function setArea ( $area )
+	{
+		$this->area = $area;
+	}
+
 	public static function getAllAreaRecord()
 	{
 		try
 		{
-			$strSql = "select f_parent,f_name,f_fullname,f_phone,f_time from t_area";
+			$strSql = "select f_province,f_city,f_area,f_name,f_fullname,f_phone,f_time from t_area";
 		
 			$rs = DbOperator::queryAll($strSql);
 		
@@ -151,14 +204,9 @@ class Area
 				
 				$area->id		 = (1 + $count);
 				
-				if($arrayIndex['F_PARENT'] == 0)
-				{
-					$area->parent = "扬州";
-				}
-				else 
-				{
-					$area->parent = $arrayIndex['F_PARENT'];
-				}
+				$area->province  = $arrayIndex['F_PROVINCE'];
+				$area->city		 = $arrayIndex['F_CITY'];
+				$area->area		 = $arrayIndex['F_AREA'];
 				$area->name 	 = $arrayIndex['F_NAME'];
 				$area->fullName  = $arrayIndex['F_FULLNAME'];
 				$area->phone     = $arrayIndex['F_PHONE'];
@@ -200,6 +248,57 @@ class Area
 			}
 			
 			return $beanArray;
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	}
+	
+	public static function insertRecord($arrayBean)
+	{
+		try
+		{
+			$insertSql = "insert into t_area(f_province,f_city,f_area,f_name,f_time)values(?,?,?,?,?)";
+    	
+    		$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
+    		
+    		return $bRet;
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	}
+	
+	public static function getAreaInfo()
+	{
+		try
+		{
+			$strSql = "SELECT DISTINCT f_area FROM t_area";
+    	
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		return $rs;
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	}
+	
+	public static function getRoadInfo()
+	{
+		try
+		{
+			$strSql = "SELECT DISTINCT f_name FROM t_area";
+    	
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		return $rs;
 		
 		} catch (Exception $e)
 		{

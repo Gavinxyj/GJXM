@@ -9,6 +9,7 @@
  *@copyright(c) 扬州格佳科技有限公司
  *
  */
+require_once 'Db.class.php';
 class Box
 {
     private $id         = "";
@@ -36,6 +37,10 @@ class Box
     private $status     = "";
     
     private $time       = "";
+	
+	private $mac		= "";
+	
+	private $name		= "";
  /**
      * @return the $id
      */
@@ -243,13 +248,32 @@ class Box
     {
         $this->time = $time;
     }
-
-    public static function getBoxbyName($id)
+	
+	public function setMac($mac)
+	{
+		$this->mac = $mac;
+	}
+	
+	public function getMac()
+	{
+		return $this->mac;
+	}
+	
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	
+	public function getName()
+	{
+		return $this->name;
+	}
+    public static function getBoxbyName($name)
     {
     	try
     	{
     	
-    		$strSql = "select t_box.f_code,t_box.f_address,t_box.f_status,t_users.f_fullname,t1.f_name as f_area,t2.f_name as f_road from t_box join t_users on t_users.f_id=t_box.f_user join t_area t1 on t1.f_id=t_box.f_area join t_area t2 on t2.f_id=t_box.f_road where t_box.f_user='{$id}'";
+    		$strSql = "select f_id,f_user,f_code,f_area,f_road,f_address,f_status from t_box where f_user = '{$name}'";
     	
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -270,7 +294,7 @@ class Box
     			{
     				$box->status	= "<strong style = 'color:red'>打开</strong>";
     			}
-    			$box->user		= $arrayIndex['F_FULLNAME'];
+    			$box->user		= $arrayIndex['F_USER'];
     			$box->area		= $arrayIndex['F_AREA'];
     			$box->road		= $arrayIndex['F_ROAD'];
     			
@@ -297,6 +321,136 @@ class Box
     		
     		
     		return $bRet;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getAllBox()
+	{
+		try
+    	{
+    	
+    		$strSql = "select f_id,f_name,f_user,f_code,f_area,f_road,f_address,f_standard,f_value,f_channel,f_status,f_mac from t_box";
+    	
+    		$rs = DbOperator::queryAll($strSql);
+    		
+			$count = 0;
+			
+			$beanArray = array();
+			
+			foreach ( $rs as $arrayIndex )
+    		{   			
+    			$box = new Box();    			     			    			 
+    			$box->id		= $arrayIndex['F_ID'];
+				$box->user		= $arrayIndex['F_USER'];
+				$box->code		= $arrayIndex['F_CODE'];
+				$box->area		= $arrayIndex['F_AREA'];
+				$box->road		= $arrayIndex['F_ROAD'];
+				$box->address	= $arrayIndex['F_ADDRESS'];
+				$box->standard	= $arrayIndex['F_STANDARD'];
+				$box->value		= $arrayIndex['F_VALUE'];
+				$box->channel	= $arrayIndex['F_CHANNEL'];
+				$box->status	= $arrayIndex['F_STATUS'];
+				$box->mac		= $arrayIndex['F_MAC'];
+				$box->name		= $arrayIndex['F_NAME'];
+				
+				$beanArray[$count++]= $box;
+    		}
+    		
+    		return $beanArray;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function insertRecord($arrayBean)
+	{
+		try
+    	{   	    		
+    		$insertSql = "insert into t_box(f_code,f_area,f_road,f_address,f_name,f_user)values(?,?,?,?,?,?)";
+			
+			$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
+    		
+    		return $bRet;
+			
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getBoxByCode($code)
+	{
+		try
+    	{
+    	
+    		$strSql = "select f_id,f_name,f_user,f_code,f_area,f_road,f_address,f_mac from t_box where f_code = '{$code}' ";
+    	
+    		$rs = DbOperator::queryAll($strSql);    		
+    		
+    		return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function updateBox($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql = "update t_box set f_area = ?,f_road = ?,f_address = ?,f_name = ?,f_user = ? where f_code = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+    		return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function changeSigleRank($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql = "update t_box set f_user = ? where f_code = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+    		return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function changeMoreRank($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql = "update t_box set f_user = ? where f_name = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+    		return $rs;
     		
     	} catch (Exception $e)
     	{

@@ -470,6 +470,23 @@ class User
     		die();
     	}
 	}
+	
+	public static function getUserInfo()
+	{
+		try
+		{
+			$strSql = "SELECT DISTINCT f_fullname FROM t_users";
+    	
+    		$rs = DbOperator::queryAll($strSql);
+    		
+    		return $rs;
+		
+		} catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	}
 }
 
 ?>
