@@ -24,10 +24,12 @@ class DbOperator
 				self::$db = new PDO ( "mysql:host=" . localhost . ";dbname=" .gjxms, root, root, array (
 						PDO::ATTR_PERSISTENT => true 
 				) );
-				
+				self::$db->setAttribute(PDO::ATTR_AUTOCOMMIT, false);
 				self::$db->setAttribute ( PDO::ATTR_CASE, PDO::CASE_UPPER );
+				self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				self::$db->exec("SET NAMES UTF8");
 				self::$db->exec("set sql_mode='NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
+				
 			}
 			
 			return self::$db;
@@ -54,26 +56,29 @@ class DbOperator
 	{
 		try
 		{
+			
 			$nRet = self::getInstance ()->beginTransaction ();
 			
+			self::getInstance ()->setAttribute(PDO::ATTR_AUTOCOMMIT,false);
 			if ( $nRet == true )
 			{
 				$stms = self::getInstance ()->prepare ( $strSql );
 					
 				foreach ( $array as $value )
 				{
-					$nRet = $stms->execute ( $value );
+					$result[] = $stms->execute($value);
 				}
 			}
 			
-			$nRet = self::getInstance ()->commit ();
+			//$nRet = self::getInstance ()->commit();
 			
 			return $nRet;
 		
 		}
 		catch ( PDOException $e )
 		{
-			print "Error: " . $e->getMessage () . "<br/>";
+			print "Error:" . $e->getMessage () . "<br/>";
+			self::getInstance ()->rollBack ();
 			die ();
 		}
 	

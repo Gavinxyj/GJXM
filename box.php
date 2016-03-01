@@ -13,6 +13,7 @@ require_once 'init.php';
 require_once './classpackage/Box.class.php';
 require_once './classpackage/Area.class.php';
 require_once './classpackage/User.class.php';
+
 if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 {
 	echo "<script>alert('timeout or logout');parent.location.href='index.php'</script>";
@@ -21,7 +22,8 @@ if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 
 if(isset ( $_GET ['active'] ) && $_GET ['active'] == "total")
 {	
-	$boxBean = Box::getAllBox();		
+	$boxBean = Box::getAllBox();	
+     
 	$smarty->assign( "boxBean", $boxBean );
 	$smarty->display ( 'box.html' );
 }
@@ -39,7 +41,7 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "addBox")
 }
 else if( isset ( $_POST['submit'] ) && empty($_POST['id']) )
 {
-	$arrayBean = array($_POST['code'],$_POST['area'],$_POST['road'],$_POST['address'],$_POST['name'],$_POST['user']);
+	$arrayBean = array($_POST['code'],$_POST['area'],$_POST['road'],$_POST['address'],$_POST['name'],$_POST['user'],date('Y-m-d H:i:s',time()));
 
 	$bRet = Box::insertRecord($arrayBean);
 	
@@ -127,4 +129,5 @@ else if( isset ( $_POST['submit'] ) && $_POST['id'] == "more" )
 		echo "<script>alert('修改失败');history.back();</script>";
 	}			
 }
+else if( isset ( $_POST['submit'] ) && $_POST['id'] == "more" )
 ?>

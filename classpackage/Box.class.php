@@ -334,7 +334,7 @@ class Box
 		try
     	{
     	
-    		$strSql = "select f_id,f_name,f_user,f_code,f_area,f_road,f_address,f_standard,f_value,f_channel,f_status,f_mac from t_box";
+    		$strSql = "select f_name,f_user,f_code,f_area,f_road,f_address,f_standard,f_value,f_channel,f_status,f_mac from t_box";
     	
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -345,7 +345,6 @@ class Box
 			foreach ( $rs as $arrayIndex )
     		{   			
     			$box = new Box();    			     			    			 
-    			$box->id		= $arrayIndex['F_ID'];
 				$box->user		= $arrayIndex['F_USER'];
 				$box->code		= $arrayIndex['F_CODE'];
 				$box->area		= $arrayIndex['F_AREA'];
@@ -365,7 +364,7 @@ class Box
     		
     	} catch (Exception $e)
     	{
-    		print "Error: " . $e->getMessage() . "<br/>";
+    		print "Error: getAllBox " . $e->getMessage() . "<br/>";
     		die();
     	}
 	}
@@ -374,7 +373,7 @@ class Box
 	{
 		try
     	{   	    		
-    		$insertSql = "insert into t_box(f_code,f_area,f_road,f_address,f_name,f_user)values(?,?,?,?,?,?)";
+    		$insertSql = "insert into t_box(f_code,f_area,f_road,f_address,f_name,f_user,f_time)values(?,?,?,?,?,?,?)";
 			
 			$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
     		
@@ -387,12 +386,28 @@ class Box
     	}
 	}
 	
+	public static function insertAllRecord($arrayBean)
+	{
+		try
+    	{   	    		
+    		$insertSql = "insert into t_box(f_code,f_area,f_road,f_address,f_name,f_user,f_time)values(?,?,?,?,?,?,?)";
+			
+			$bRet = DbOperator::executeArraySql($insertSql, $arrayBean);
+    		
+    		return $bRet;
+			
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 	public static function getBoxByCode($code)
 	{
 		try
     	{
     	
-    		$strSql = "select f_id,f_name,f_user,f_code,f_area,f_road,f_address,f_mac from t_box where f_code = '{$code}' ";
+    		$strSql = "select f_name,f_user,f_code,f_area,f_road,f_address,f_mac from t_box where f_code = '{$code}' ";
     	
     		$rs = DbOperator::queryAll($strSql);    		
     		

@@ -15,6 +15,7 @@
 <script type="text/javascript"
 	src="./js/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="./js/planeui.js"></script>
+<script type="text/javascript" src="./js/jquery.js"></script>
 </head>
 <body>
 	<div class="pui-tab-container">
@@ -23,7 +24,18 @@
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
 				<tr class="error">
-					<th colspan="12">光交箱信息汇总</th>
+					<th colspan="9">光交箱信息汇总</th>
+					<form enctype="multipart/form-data" method="post" id = "fileinfo" name="fileinfo">
+						<th colspan="2">					
+							<input type="file" name="fileToUpload" id="fileToUpload" value = "" style = "width : 240px"/>     						
+						</th>
+						<th style = "padding-top : 4px">
+							<button  type="button" class="pui-btn pui-btn-primary"
+									onclick="fileUpLoad()">
+									批量新增 <span class="arrow-down"></span>
+								</button>
+						</th>
+					</form>					
 				</tr>
 			</table>
 			<table
@@ -84,7 +96,7 @@
 	<div class="theme-popover" style = "height : 400px">
 		<div class="pui-btn pui-btn-secondary pui-btn-block theme-poptit">
 			<a href="javascript:;" title="关闭" class="close">×</a>
-			<h3 id = "title">员工信息修改</h3>
+			<h3 id = "title">光交箱信息修改</h3>
 		</div>
 		<div class="theme-popbod dform">
 			<form class="theme-signin" name="loginform" action="box.php" method="post">
