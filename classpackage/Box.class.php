@@ -473,6 +473,24 @@ class Box
     		die();
     	}
 	}
+	
+	public static function getBoxPos()
+	{
+		try
+    	{
+    	
+    		$strSql = "select f_user,f_code,f_address,f_longitude,f_latitude from t_box";			
+    	
+    		$rs = DbOperator::queryAll($strSql);
+          
+    		return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 }
 
 ?>

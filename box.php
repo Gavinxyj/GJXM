@@ -129,5 +129,12 @@ else if( isset ( $_POST['submit'] ) && $_POST['id'] == "more" )
 		echo "<script>alert('修改失败');history.back();</script>";
 	}			
 }
-else if( isset ( $_POST['submit'] ) && $_POST['id'] == "more" )
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "map")
+{
+	$box  = Box::getBoxPos();
+	
+	$rs['map'] = $box;
+	
+	echo json_encode($rs, JSON_UNESCAPED_UNICODE);
+}
 ?>

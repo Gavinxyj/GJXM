@@ -46,9 +46,9 @@
 			<table
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
-				<tbody>
+				<tbody id = "userList">
 					{foreach from=$userBean item=rs}
-					<tr>
+					<tr id = "{$rs->getUserName()}">
 						<td width="100">{$rs->getUserName()}</td>
 						<td width="100">{$rs->getFullName()}</td>
 						<td width="100">{$rs->getRank()}</td>
@@ -62,7 +62,7 @@
 								修改 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-error"
-								onclick="Delete()" disabled="disabled">
+								onclick="deleteUser('{$rs->getUserName()}')">
 								删除 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-primary"
@@ -75,7 +75,7 @@
 				</tbody>
 			</table>
 			<button type="button" class="pui-btn pui-btn-secondary pui-btn-block theme-login"
-				style="width: 100%" onclick="addStaff()">
+				style="width: 100%" onclick="addStaff('{$rs->getRank()}')">
 				新增员工 <span class="arrow-down"></span>
 			</button>
 		</div>
@@ -88,6 +88,7 @@
 		<div class="theme-popbod dform">
 			<form class="theme-signin" name="loginform" action="users.php" method="post">
                 <ol>
+					 <li style = "display : none"><input  id = "type" name = "type" value = ""/></li>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
                  	 <li><strong>姓名：</strong><input type="text" id = "name" name="name" value="" size="20" autofocus="autofocus"/></li>
                      <li><strong>用户名：</strong><input type="text" id = "userName" name="userName" value="" size="20" /></li>

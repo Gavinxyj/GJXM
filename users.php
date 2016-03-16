@@ -78,31 +78,42 @@ else if(isset($_POST['submit']) && !empty($_POST['id']))
 		echo "<script>alert('修改失败');history.back();</script>";
 	}			
 }
-else if(isset($_POST['submit']) && empty($_POST['id']))
+else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "manager")
 {
-	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss']);
+	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()));
 	
 	$bRet = User::insertRecord($arrayBean);
 	
 	if(bRet == true)
 	{
-		User::getAllRecord ();
-		$userBean = User::getBeanArray ();
-		$smarty->assign( "userBean", $userBean );
+		$managerBean = User::getManager ();
+		$smarty->assign( "userBean", $managerBean );
 		$smarty->display ( 'users.html' );
 	}
 }
-else if(isset($_POST['submit']) && empty($_POST['id']))
+else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "operator")
 {
-	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss']);
+	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()));
 	
 	$bRet = User::insertRecord($arrayBean);
 	
 	if(bRet == true)
 	{
-		User::getAllRecord ();
-		$userBean = User::getBeanArray ();
-		$smarty->assign( "userBean", $userBean );
+		$operatorBean = User::getOperator ();
+		$smarty->assign( "userBean", $operatorBean );
+		$smarty->display ( 'users.html' );
+	}
+}
+else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "install")
+{
+	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()));
+	
+	$bRet = User::insertRecord($arrayBean);
+	
+	if(bRet == true)
+	{
+		$installBean = User::getInstaller ();	
+		$smarty->assign( "userBean", $installBean );
 		$smarty->display ( 'users.html' );
 	}
 }
@@ -125,5 +136,12 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "install")
 	$smarty->assign( "userBean", $installBean );
 	$smarty->display ( 'users.html' );
 	
+}
+else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "delete")
+{
+	$bRet = User::deleteByUserName($_GET['userName']);
+	
+	
+	echo true;	
 }
 ?>

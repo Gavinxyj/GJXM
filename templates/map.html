@@ -1,0 +1,73 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{height:100%;width:100%;}
+		#r-result{width:100%; font-size:14px;}
+	</style>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2WB3F54NGHjghZvjBCWVaXKX"></script>
+	<title>光交箱智能门锁监控管理系统</title>
+</head>
+<body onload = "load();">
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+	var map = new BMap.Map("allmap");
+	map.centerAndZoom(new BMap.Point(119.42,32.39),13);
+	map.enableScrollWheelZoom(true);
+function load()
+{	
+	var xmlhttp;  
+	// 创建XMLHttpRequest对象  
+	if (window.XMLHttpRequest)  
+	{// code for IE7+, Firefox, Chrome, Opera, Safari 现代浏览器  
+		xmlhttp=new XMLHttpRequest();  
+	}  
+	else  
+	{// code for IE6, IE5 用户低版本ie  
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+	}  
+	// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
+	xmlhttp.open("GET","../box.php?active=map",true);  
+	// 将请求发送至服务器  
+	xmlhttp.send();  
+	// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
+	xmlhttp.onreadystatechange=function()  
+	{  
+		// alert(xmlhttp.readyState);
+		// 4,200 不知道可以看看上面我贴出来的介绍  
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)  
+		{  
+		   
+		   map.clearOverlays(); 
+		   var json = eval("(" + xmlhttp.responseText + ")");
+		   		   
+		   for(var index = 0; index < json.map.length; index ++)
+		   {
+				var new_point = new BMap.Point(json.map[index].F_LONGITUDE,json.map[index].F_LATITUDE);
+				var maker = new BMap.Marker(new_point);
+				map.addOverlay(maker);
+				map.panTo(new_point);
+				
+			//	var opts1 = {title : '<span style="font-size:14px;color:#0A8021">光交箱编码:'+json.map[index].F_CODE+'</span>'};
+				
+				var txt = "<div style='line-height:1.8em;font-size:12px;'><b>地址:</b>"+json.map[index].F_ADDRESS+"</br><b>负责人:</b>"+json.map[index].F_USER+"</br><b>";
+			
+				addInfo(txt,json.map[index].F_CODE,maker);
+		   }
+		}  
+	} 
+}
+
+function addInfo(txt,code,marker)
+{
+	var infoWindow = new BMap.InfoWindow(txt);  
+	infoWindow.setTitle('<span style="font-size:14px;color:#0A8021">光交箱编码:'+code+'</span>');
+    marker.addEventListener("mouseover", function(){this.openInfoWindow(infoWindow);}); 
+}
+</script>

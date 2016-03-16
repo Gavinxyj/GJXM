@@ -343,7 +343,7 @@ class User
 	{
 		try
     	{  	
-    		$insertSql = "insert into t_users(f_username,f_password,f_fullname,f_phone,f_rank,f_head)values(?,?,?,?,?,?)";
+    		$insertSql = "insert into t_users(f_username,f_password,f_fullname,f_phone,f_rank,f_head,f_last_login,f_last_time)values(?,?,?,?,?,?,?,?)";
     	
     		$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
     		
@@ -486,6 +486,25 @@ class User
 			print "Error: " . $e->getMessage() . "<br/>";
 			die();
 		}
+	}
+	
+	public static function deleteByUserName($userName)
+	{
+		try
+    	{
+    	
+    		$strSql = "delete from t_users where f_fullname=?";
+    	
+    		$bRet = DbOperator::executeArraySql($strSql,array(array($userName)));
+    		
+    		
+    		return $bRet;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
 	}
 }
 
