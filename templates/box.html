@@ -43,7 +43,7 @@
 				style="margin: 0">
 				<thead>
 					<tr class="info">
-						<th width = "250">序列号</th>
+						<th width = "215">序列号</th>
 						<th>区域</th>
 						<th>街道</th>
 						<th>地址</th>
@@ -63,7 +63,7 @@
 				<tbody id="rank">
 					{foreach from=$boxBean item=rs}
 					<tr id = "{$rs->getCode()}">
-						<td width = "250">{$rs->getCode()}</td>
+						<td width = "215">{$rs->getCode()}</td>
 						<td>{$rs->getArea()}</td>
 						<td>{$rs->getRoad()}</td>
 						<td>{$rs->getAddress()}</td>
@@ -102,19 +102,19 @@
 			<form class="theme-signin" name="loginform" action="box.php" method="post">
                 <ol>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
-                 	 <li><strong>序列号：</strong><input type="text" id = "code" name="code" value="" size="20" autofocus="autofocus"/></li>
+                 	 <li><strong>序列号：</strong><input style = "width : 235px" type="text" id = "code" name="code" value="" size="20" autofocus="autofocus"/></li>
                      <li style = "padding-bottom : 5px"><strong>区域：</strong>
-						<select id = "area" name = "area">
+						<select id = "area" name = "area" style = "width : 235px">
 	                     </select>
 					 </li>
                      <li style = "padding-bottom : 5px"><strong>街道：</strong>
-						 <select id = "road" name = "road">
+						 <select id = "road" name = "road" style = "width : 235px">
 	                     </select>
 					 </li style = "padding-bottom : 5px">
-                     <li><strong>详细地址：</strong><input type="text" id = "address" name="address" /></li>
-                     <li><strong>光交箱名：</strong><input type="text" id = "name" name="name"/></li>
+                     <li><strong>详细地址：</strong><input style = "width : 235px" type="text" id = "address" name="address" /></li>
+                     <li><strong>光交箱名：</strong><input style = "width : 235px" type="text" id = "name" name="name"/></li>
                      <li><strong>管理员：</strong>
-	                     <select id = "user" name = "user">
+	                     <select id = "user" name = "user" style = "width : 235px">
 	                     </select>
                      </li>             
                      <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认新增" /></li>

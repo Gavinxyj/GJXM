@@ -71,7 +71,7 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "alterRank")
 	
 	echo json_encode($rankBean, JSON_UNESCAPED_UNICODE);
 }
-else if(isset ( $_POST ['submit'] ))
+else if(isset ( $_POST ['submit'] ) && !empty($_POST['id']))
 {
 	$arrayBean = array($_POST['name'],$_POST['desc'],$_POST['id']);
 	
@@ -106,6 +106,46 @@ else if(isset ( $_POST ['submit'] ))
 	if($bRet == false)
 	{
 		echo "<script>alert('记录更新失败!');history.back();</script>";
+	}
+}
+else if($_POST ['submit'] && empty($_POST['id']))
+{
+	$arrayBean = array($_POST['type'],$_POST['name'],$_POST['desc'],date('Y-m-d H:i:s',time()));
+	
+	$bRet = Rank::addRank($arrayBean);
+	
+	if($bRet)
+	{
+		$rankBean = Rank::getAllRecord ();
+		$arrayType_1 = array();
+		$arrayType_2 = array();
+		$arrayType_3 = array();
+		foreach ( $rankBean as $arrayIndex )
+		{
+			if($arrayIndex->getType() == 1)
+			{
+				$arrayType_1[] = $arrayIndex;
+			}
+			else if($arrayIndex->getType() == 2)
+			{
+				$arrayType_2[] = $arrayIndex;
+			}
+			else if($arrayIndex->getType() == 3)
+			{
+				$arrayType_3[] = $arrayIndex;
+			}
+		}
+			
+		$smarty->assign( "rankBean_1", $arrayType_1 );
+		$smarty->assign( "rankBean_2", $arrayType_2 );
+		$smarty->assign( "rankBean_3", $arrayType_3 );
+		$smarty->display ( 'rankView.html' );
+		
+		echo "操作成功！";
+	}
+	else
+	{
+		echo "操作失败！";
 	}
 }
 ?>

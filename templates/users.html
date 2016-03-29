@@ -66,7 +66,7 @@
 								删除 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-primary"
-								onclick="location.href='rank.php?active=setRank&id={$rs->getId()}'" {if $rs->getRank()==1}disabled{/if}>
+								onclick="location.href='rank.php?active=setRank&id={$rs->getFullName()}'" {if $rs->getRank()==1}disabled{/if}>
 								权限设置 <span class="arrow-down"></span>
 							</button>
 						</td>

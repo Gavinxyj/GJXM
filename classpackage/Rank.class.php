@@ -124,7 +124,7 @@ class Rank
 		try 
     	{	
     		
-    		$strSql = "select f_id,f_type,f_code,f_title,f_desc,f_time from t_rank order by f_id";
+    		$strSql = "select f_id,f_type,f_title,f_desc,f_time from t_rank order by f_id";
     		
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -139,7 +139,6 @@ class Rank
     			 
     			 $rank->id		  = $arrayIndex['F_ID'];
     			 $rank->type	  = $arrayIndex['F_TYPE'];
-				 $rank->code	  = $arrayIndex['F_CODE'];
 				 $rank->title	  = $arrayIndex['F_TITLE'];
 				 $rank->desc	  = $arrayIndex['F_DESC'];
 				 $rank->time	  = $arrayIndex['F_TIME'];
@@ -181,6 +180,25 @@ class Rank
             $rs = DbOperator::executeArraySql($strSql, array($arrayList));
           
             return $rs;
+        
+        } catch (Exception $e)
+        {
+            print "Error: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
+        return $rs;
+	}
+	
+	public static function addRank($arrayBean)
+	{
+		try
+        {
+           $insertSql = "insert into t_rank(f_type,f_title,f_desc,f_time)values(?,?,?,?)";
+    	
+    		$bRet = DbOperator::executeArraySql($insertSql, array($arrayBean));
+    		
+    		return $bRet;
         
         } catch (Exception $e)
         {

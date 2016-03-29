@@ -44,9 +44,9 @@
 			<table
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
-				<tbody>
+				<tbody id = "areaList">
 					{foreach from=$areaBean item=rs}
-					<tr>
+					<tr id = '{$rs->getId()}'>
 						<td>{$rs->getProvince()}</td>
 						<td>{$rs->getCity()}</td>
 						<td>{$rs->getArea()}</td>
@@ -54,11 +54,11 @@
 						<td>{$rs->getTime()}</td>
 						<td>
 							<button type="button" class="pui-btn pui-btn-primary theme-login"
-								onclick="alterArea('{$rs->getName()}')">
+								onclick="alterArea('{$rs->getId()}')">
 								修改 <span class="arrow-down"></span>
 							</button>
 							<button type="button" class="pui-btn pui-btn-error"
-								onclick="Delete()">
+								onclick="deleteArea('{$rs->getId()}')">
 								删除 <span class="arrow-down"></span>
 							</button>
 						</td>
@@ -81,6 +81,7 @@
 			<form class="theme-signin" name="loginform" action="area.php" method="post">
                 <ol>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
+					 <li style = "display : none"><input  id = "func" name = "func"/></li>
                      <li><strong>区域选择：</strong>
 	                     <select id = "province" name="province3" style = "width : 100px">
 	                     </select>

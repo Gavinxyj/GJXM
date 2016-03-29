@@ -9,7 +9,8 @@ $(document).ready(function(){
 			$('#tt').tabs('add',{
 				id: 0,
 				title: "总体预览",
-				content:content
+				content:content,
+				closable: true
 			});
 		}
 		

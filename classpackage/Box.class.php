@@ -273,7 +273,7 @@ class Box
     	try
     	{
     	
-    		$strSql = "select f_id,f_user,f_code,f_area,f_road,f_address,f_status from t_box where f_user = '{$name}'";
+    		$strSql = "select f_user,f_code,f_area,f_road,f_address,f_status from t_box where f_user = '{$name}'";
     	
     		$rs = DbOperator::queryAll($strSql);
     		

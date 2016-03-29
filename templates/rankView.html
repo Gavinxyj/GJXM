@@ -27,10 +27,15 @@
 				style="margin: 0">
 				<thead>
 					<tr class="error">
-						<th colspan = "5">用户权限类别</th>
+						<th colspan = "3">用户权限类别</th>
+						<th style = "text-align : right">
+							<button  type="button" class="pui-btn pui-btn-primary theme-login"
+								onclick = "AddRank(1)">
+								新增 <span class="arrow-down"></span>
+							</button>
+						</th>
 					</tr>
 					<tr class="info">
-						<th>编号</th>
 						<th>权限名称</th>
 						<th>描述</th>
 						<th>更新时间</th>						
@@ -40,7 +45,6 @@
 				<tbody>
 					{foreach from=$rankBean_1 item=rs}
 					<tr>
-						<td>{$rs->getCode()}</td>
 						<td>{$rs->getTitle()}</td>
 						<td>{$rs->getDesc()}</td>
 						<td>{$rs->getTime()}</td>						
@@ -61,12 +65,16 @@
 				style="margin: 1">
 				<thead>
 					<tr class="error">
-						<th colspan = "6">操作人员选择项设置</th>
+						<th colspan = "3">操作人员选择项设置</th>
+						<th style = "text-align : right">
+							<button  type="button" class="pui-btn pui-btn-primary theme-login"
+								onclick = "AddRank(2)">
+								新增 <span class="arrow-down"></span>
+							</button>
+						</th>
 					</tr>
 					<tr class="info">
-						<th>编号</th>
 						<th>权限名称</th>
-						<th>操作码</th>
 						<th>描述</th>
 						<th>更新时间</th>						
 						<th>操作</th>
@@ -75,9 +83,7 @@
 				<tbody>
 					{foreach from=$rankBean_2 item=rs}
 					<tr>
-						<td>{$rs->getCode()}</td>
 						<td>{$rs->getTitle()}</td>
-						<td>{$rs->getId()}</td>
 						<td>{$rs->getDesc()}</td>
 						<td>{$rs->getTime()}</td>						
 						<td>
@@ -97,12 +103,16 @@
 				style="margin: 1">
 				<thead>
 					<tr class="error">
-						<th colspan = "6">管理员选项设置</th>
+						<th colspan = "3">管理员选项设置</th>
+						<th style = "text-align : right">
+							<button  type="button" class="pui-btn pui-btn-primary theme-login"
+								onclick = "AddRank(3)">
+								新增 <span class="arrow-down"></span>
+							</button>
+						</th>
 					</tr>
 					<tr class="info">
-						<th>编号</th>
 						<th>权限名称</th>
-						<th>操作码</th>
 						<th>描述</th>
 						<th>更新时间</th>						
 						<th>操作</th>
@@ -111,9 +121,7 @@
 				<tbody>
 					{foreach from=$rankBean_3 item=rs}
 					<tr>
-						<td>{$rs->getCode()}</td>
 						<td>{$rs->getTitle()}</td>
-						<td>{$rs->getId()}</td>
 						<td>{$rs->getDesc()}</td>
 						<td>{$rs->getTime()}</td>						
 						<td>
@@ -137,6 +145,7 @@
 			<form class="theme-signin" name="loginform" action="rank.php" method="post">
                 <ol>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
+					  <li style = "display : none"><input  id = "type" name = "type"/></li>
                  	 <li><strong>权限名称：</strong><input type="text" id = "name" name="name" value="" size="20" autofocus="autofocus"/></li>
                      <li><strong>描述：</strong><textarea id = "desc" rows="10" cols="30" name="desc" style = "height : 180px"></textarea></li>                    
                      <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认修改" /></li>

@@ -190,7 +190,7 @@ class Area
 	{
 		try
 		{
-			$strSql = "select f_province,f_city,f_area,f_name,f_fullname,f_phone,f_time from t_area";
+			$strSql = "select f_id, f_province,f_city,f_area,f_name,f_fullname,f_phone,f_time from t_area order by f_id";
 		
 			$rs = DbOperator::queryAll($strSql);
 		
@@ -202,7 +202,7 @@ class Area
 			{
 				$area = new Area();
 				
-				$area->id		 = (1 + $count);
+				$area->id		 = $arrayIndex['F_ID'];
 				
 				$area->province  = $arrayIndex['F_PROVINCE'];
 				$area->city		 = $arrayIndex['F_CITY'];
@@ -305,6 +305,43 @@ class Area
 			print "Error: " . $e->getMessage() . "<br/>";
 			die();
 		}
+	}
+	
+	public static function updateInfo($arrayBean)
+	{
+		try
+        {
+            $strSql = "update t_area set f_province=? ,f_city= ? ,f_area= ?, f_name = ? where f_id=?";
+        
+            $rs = DbOperator::executeArraySql($strSql, array($arrayBean));
+          
+            return $rs;
+        
+        } catch (Exception $e)
+        {
+            print "Error: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
+        return $rs;
+	}
+	
+	public static function deleteAreaById($id)
+	{
+		try
+    	{
+    	
+    		$strSql = "delete from t_area where f_id=?";
+    	
+    		$bRet = DbOperator::executeArraySql($strSql,array(array($id)));
+    		
+    		return $bRet;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
 	}
 }
 

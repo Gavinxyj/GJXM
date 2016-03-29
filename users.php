@@ -141,7 +141,13 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "delete")
 {
 	$bRet = User::deleteByUserName($_GET['userName']);
 	
-	
-	echo true;	
+	if($bRet)
+	{
+		echo true;	
+	}
+	else
+	{
+		echo false;
+	}
 }
 ?>
