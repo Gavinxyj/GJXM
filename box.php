@@ -41,8 +41,11 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "addBox")
 }
 else if( isset ( $_POST['submit'] ) && empty($_POST['id']) )
 {
-	$arrayBean = array($_POST['code'],$_POST['area'],$_POST['road'],$_POST['address'],$_POST['name'],$_POST['user'],date('Y-m-d H:i:s',time()));
-
+	$code = $_POST['code'];
+	$data = date('YmdHis',time()) + 1;
+	
+	$arrayBean = array($code.$data,$_POST['area'],$_POST['road'],$_POST['address'],$_POST['name'],$_POST['user'],date('Y-m-d H:i:s',time()));
+	
 	$bRet = Box::insertRecord($arrayBean);
 	
 	if(bRet == true)

@@ -41,6 +41,10 @@ if($_FILES['fileUpLoad']['error']==0)
 			
 			$beanRow[] = date('Y-m-d H:i:s',time());
 			
+			$data = date('YmdHis',time()) + 1;
+			
+			$beanRow[0] = $beanRow[0].$data;
+			
 			$beanArray[] = $beanRow;
 		} 
 	 }
@@ -49,10 +53,11 @@ if($_FILES['fileUpLoad']['error']==0)
 	{
 		$result = Box::insertAllRecord($beanArray);
 		
-		
 		if($result)
 		{
-			echo count($beanArray)."条记录插入数据库成功！";
+			$rowNum['row'] = $beanArray;
+			$rowNum['count'] = count($beanArray)."条记录插入数据库成功！";
+			echo json_encode($rowNum, JSON_UNESCAPED_UNICODE);
 		}
 		else 
 		{
