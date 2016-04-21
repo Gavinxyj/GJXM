@@ -70,7 +70,7 @@ class DbOperator
 				}
 			}
 			
-			//$nRet = self::getInstance ()->commit();
+			$nRet = self::getInstance ()->commit();
 			
 			return $nRet;
 		

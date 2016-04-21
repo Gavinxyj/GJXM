@@ -26,29 +26,61 @@ if($_FILES['fileUpLoad']['error']==0)
 		$objWorksheet = $objPHPExcel->getActiveSheet();
 		
 		$count = 0;
+		
+		try
+		{
+			$querySql = "SELECT max( f_id ) AS max FROM t_box";
+			
+			$max = DbOperator::queryAll($querySql);
+		} 
+		catch (Exception $e)
+		{
+			print "Error: " . $e->getMessage() . "<br/>";
+			die();
+		}
+	    $max = $max[0]['MAX'];
 		foreach($objWorksheet->getRowIterator() as $row)
 		{
 			$count ++;
+			$max ++;
 			if($count == 1) continue;
 			
 			$beanRow = array();
 			$cellIterator = $row->getCellIterator();
 			$cellIterator->setIterateOnlyExistingCells(false);
+			
+			$flag = 0;
 			foreach($cellIterator as $cell)
 			{
+				if($flag == 0)
+				{
+					$preName = $cell->getValue();
+					$flag ++;					
+					continue;
+				}
+				if($flag == 1)
+				{
+					$version = $cell->getValue();
+					$code = sprintf("%08d", $max);
+					$beanRow[] = $preName.$code.$version;
+					$flag ++;
+					continue;
+				}
+				
+				
 				$beanRow[]=$cell->getValue();				
 			}
 			
 			$beanRow[] = date('Y-m-d H:i:s',time());
 			
-			$data = date('YmdHis',time()) + 1;
+		//	$data = date('YmdHis',time()) + 1;
 			
-			$beanRow[0] = $beanRow[0].$data;
+		//	$beanRow[0] = $beanRow[0].$data;
 			
 			$beanArray[] = $beanRow;
 		} 
 	 }
-	 
+	
 	if(!empty($beanArray))
 	{
 		$result = Box::insertAllRecord($beanArray);

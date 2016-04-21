@@ -24,23 +24,29 @@
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
 				style="margin: 0">
 				<tr class="error">
-					<th colspan="9">光交箱信息汇总</th>
+					<th colspan="8">光交箱信息汇总</th>
+					<th style = "padding-top : 4px">					
+						<button  type="button" class="pui-btn pui-btn-primary theme-login"
+									onclick="loadInfoBox()">
+									批量授权 <span class="arrow-down"></span>
+						</button>
+					</th>
 					<form enctype="multipart/form-data" method="post" id = "fileinfo" name="fileinfo">
 						<th colspan="2">					
-							<input type="file" name="fileToUpload" id="fileToUpload" value = "" style = "width : 240px"/>     						
+							<input type="file" name="fileToUpload" id="fileToUpload" value = "" style = "width : 190px"/>     						
 						</th>
 						<th style = "padding-top : 4px">
 							<button  type="button" class="pui-btn pui-btn-primary"
 									onclick="fileUpLoad()">
 									批量新增 <span class="arrow-down"></span>
-								</button>
+							</button>
 						</th>
 					</form>					
 				</tr>
 			</table>
 			<table
 				class="pui-table pui-table-bordered pui-table-text-center pui-table-thead-bg pui-table-interlaced-color pui-table-compact box-shadow-bottom pui-table-gradient"
-				style="margin: 0" id = "boxBean">
+				style="margin: 0">
 				<thead>
 					<tr class="info">
 						<th width = "215">序列号</th>
@@ -48,11 +54,11 @@
 						<th>街道</th>
 						<th>地址</th>
 						<th>光交箱名称</th>
-						<th>标准值</th>
-						<th>动态值</th>
-						<th>阀值</th>
+						<th width = "45">标准值</th>
+						<th width = "45">动态值</th>
+						<th width = "35">阀值</th>
 						<th>mac地址</th>
-						<th>管理员</th>
+					<!--	<th>管理员</th> -->
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -68,11 +74,11 @@
 						<td>{$rs->getRoad()}</td>
 						<td>{$rs->getAddress()}</td>
 						<td>{$rs->getName()}</td>
-						<td>{$rs->getValue()}</td>
-						<td>{$rs->getStandard()}</td>
-						<td>{$rs->getChannel()}</td>
+						<td width = "45">{$rs->getValue()}</td>
+						<td width = "45">{$rs->getStandard()}</td>
+						<td width = "35">{$rs->getChannel()}</td>
 						<td>{$rs->getMac()}</td>
-						<td>{$rs->getUser()}</td>
+					<!--	<td>{$rs->getUser()}</td> -->
 						<td>
 							<button type="button" class="pui-btn pui-btn-primary theme-login"
 								onclick="alterBox('{$rs->getCode()}')">
@@ -93,32 +99,67 @@
 			</button>
 		</div>
 	</div>
-	<div class="theme-popover" style = "height : 400px">
+	<div class="theme-popover" id = "wh" style = "height : 400px;width : 500px">
 		<div class="pui-btn pui-btn-secondary pui-btn-block theme-poptit">
 			<a href="javascript:;" title="关闭" class="close">×</a>
 			<h3 id = "title">光交箱信息修改</h3>
 		</div>
 		<div class="theme-popbod dform">
 			<form class="theme-signin" name="loginform" action="box.php" method="post">
-                <ol>
-                	 <li style = "display : none"><input  id = "id" name = "id"/></li>
-                 	 <li><strong>序列号：</strong><input style = "width : 235px" type="text" id = "code" name="code" value="" size="20" autofocus="autofocus"/></li>
-                     <li style = "padding-bottom : 5px"><strong>区域：</strong>
-						<select id = "area" name = "area" style = "width : 235px">
-	                     </select>
-					 </li>
-                     <li style = "padding-bottom : 5px"><strong>街道：</strong>
-						 <select id = "road" name = "road" style = "width : 235px">
-	                     </select>
-					 </li style = "padding-bottom : 5px">
-                     <li><strong>详细地址：</strong><input style = "width : 235px" type="text" id = "address" name="address" /></li>
-                     <li><strong>光交箱名：</strong><input style = "width : 235px" type="text" id = "name" name="name"/></li>
-                     <li><strong>管理员：</strong>
-	                     <select id = "user" name = "user" style = "width : 235px">
-	                     </select>
-                     </li>             
-                     <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认新增" /></li>
-                </ol>
+				<div id = "addSegment" style = "display:block">
+					<ol>
+						 <li style = "display : none"><input  id = "id" name = "id"/></li>
+						 <li style = "display : none"><input  id = "key" name = "key"/></li>
+						 <li><strong>序列号：</strong>
+							<select id = "preName" name = "preName" style = "width : 40px">
+								<option value = "MK">MK</option>
+							 </select>
+							<input type="text" id = "code" name="code" value="" size="20"/>
+							<select id = "version" name = "version" style = "width : 80px">
+							 </select>
+						 </li>
+						 <li style = "padding-bottom : 5px"><strong>区域：</strong>
+							<select id = "area" name = "area">
+							 </select>
+						 </li>
+						 <li style = "padding-bottom : 5px"><strong>街道：</strong>
+							 <select id = "road" name = "road">
+							 </select>
+						 </li style = "padding-bottom : 5px">
+						 <li><strong>详细地址：</strong><input type="text" id = "address" name="address" /></li>
+						 <li><strong>光交箱名：</strong><input type="text" id = "name" name="name"/></li>
+						 <li><strong>管理员：</strong>
+							 <select id = "user" name = "user">
+							 </select>
+						 </li>             
+						 <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认新增" /></li>
+					</ol>
+				</div>
+                <div id = "rankSegment" style = "display : none">
+					<ol>
+						 <li id = "address" style = "display : block"><strong>授权选择：</strong>
+							<select id = "authorization" name = "authorization" style = "width : 200px" onchange = "selectRank(this.options[this.selectedIndex].text)">
+									<option value = "区域授权">区域授权</option>
+									<option value = "道路授权">道路授权</option>
+							 </select>
+						 </li>
+						 <li id = "areaSelect" style = "display : block"><strong>将区域：</strong>
+							<select id = "areaSegment" name = "areaSegment" style = "width : 200px">
+													
+							 </select>
+						 </li>
+						 <li id = "roadSegment" class = "roadSegment" style = "display : none"><strong>道路：</strong>
+							<select id = "selectRoad" name = "selectRoad" style = "width : 200px">
+													
+							 </select>
+						 </li>
+						 <li style = "padding-top : 2px"><strong>授权给：</strong>
+							 <select id = "userSegment" name = "userSegment" style = "width : 200px">
+							 </select>
+						 </li>  					                    
+						 <li><input class="btn btn-primary" type="submit" name="submit" id = "ok" value="确认变更" /></li>
+					</ol>
+				</div>
            </form>
 		</div>
 	</div>

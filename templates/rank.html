@@ -40,12 +40,13 @@
 				style="margin: 0">
 				<thead>
 					<tr class="info">
-						<th width="250">序列号</th>
-						<th>区域</th>
-						<th>道路</th>
+						<th width="140">序列号</th>
+						<th width="80">区域</th>
+						<th width="80">道路</th>
 						<th>地址</th>
 						<th>管理员</th>
-						<th>状态</th>
+						<th>授权人</th>
+						<th>授权时间</th>
 						<th>解权</th>
 					</tr>
 				</thead>
@@ -56,12 +57,13 @@
 				<tbody id="rank">
 					{foreach from=$boxBean item=rs}
 					<tr id = "{$rs->getCode()}">
-						<td width="250">{$rs->getCode()}</td>
-						<td>{$rs->getArea()}</td>
-						<td>{$rs->getRoad()}</td>
+						<td width="140">{$rs->getCode()}</td>
+						<td width="80">{$rs->getArea()}</td>
+						<td width="80">{$rs->getRoad()}</td>
 						<td>{$rs->getAddress()}</td>
 						<td>{$rs->getUser()}</td>
-						<td>{$rs->getStatus()}</td>
+						<td>{$rankPerson}</td>
+						<td>{$rs->getTime()}</td>
 						<td>
 							<button type="button" class="pui-btn pui-btn-error"
 								onclick = "deleteByCode('{$rs->getCode()}')">
@@ -79,7 +81,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="theme-popover" style = "height : 200px;width : 350px">
+	<div class="theme-popover" style = "height : 300px;width : 400px">
 		<div class="pui-btn pui-btn-secondary pui-btn-block theme-poptit">
 			<a href="javascript:;" title="关闭" class="close">×</a>
 			<h3 id = "title">授权操作</h3>
@@ -88,14 +90,25 @@
 			<form class="theme-signin" name="loginform" action="box.php" method="post">
                 <ol>
                 	 <li style = "display : none"><input  id = "id" name = "id"/></li>
-                 	  <li style = "display : none"><input  id = "userName" name = "userName" value = "{$boxBean[0]->getUser()}"/></li>
-					 <li id = "address" style = "display : block"><strong>街道：</strong>
-						<select id = "street" name = "rank" style = "width : 200px">
+                 	 <li style = "display : none"><input  id = "userName" name = "userName" value = "{$boxBean[0]->getUser()}"/></li>
+					 <li id = "address" style = "display : block"><strong>授权选择：</strong>
+						<select id = "authorization" name = "authorization" style = "width : 200px" onchange = "selectRank(this.options[this.selectedIndex].text)">
+								<option value = "区域授权">区域授权</option>
+								<option value = "道路授权">道路授权</option>
+	                     </select>
+					 </li>
+					 <li id = "areaSelect" style = "display : block"><strong>将区域：</strong>
+						<select id = "area" name = "area" style = "width : 200px">
+												
+	                     </select>
+					 </li>
+					 <li id = "road" class = "road1" style = "display : none"><strong>道路：</strong>
+						<select id = "selectRoad" name = "selectRoad" style = "width : 200px">
 												
 	                     </select>
 					 </li>
                      <li id = "code" style = "display : none"><strong>将光交箱：</strong><input style = "width : 200px" type="text" id = "codeValue" name="codeValue" value="" size="20" /></li>                    
-                     <li style = "padding-top : 5px"><strong>授权给：</strong>
+                     <li style = "padding-top : 2px"><strong>授权给：</strong>
 	                     <select id = "user" name = "user" style = "width : 200px">
 	                     </select>
                      </li>  					                    

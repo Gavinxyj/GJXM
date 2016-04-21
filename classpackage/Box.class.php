@@ -273,7 +273,7 @@ class Box
     	try
     	{
     	
-    		$strSql = "select f_user,f_code,f_area,f_road,f_address,f_status from t_box where f_user = '{$name}'";
+    		$strSql = "select f_user, f_code,f_area,f_road,f_address,f_status, f_time from t_operator where f_user = '{$name}'";
     	
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -297,7 +297,7 @@ class Box
     			$box->user		= $arrayIndex['F_USER'];
     			$box->area		= $arrayIndex['F_AREA'];
     			$box->road		= $arrayIndex['F_ROAD'];
-    			
+    			$box->time      = $arrayIndex['F_TIME'];
     			$beanArray[$count++] = $box;
     		}
     		
@@ -334,7 +334,7 @@ class Box
 		try
     	{
     	
-    		$strSql = "select f_name,f_user,f_code,f_area,f_road,f_address,f_standard,f_value,f_channel,f_status,f_mac from t_box";
+    		$strSql = "select f_id,f_name,f_user,f_code,f_area,f_road,f_address,f_standard,f_value,f_channel,f_status,f_mac from t_box";
     	
     		$rs = DbOperator::queryAll($strSql);
     		
@@ -344,7 +344,8 @@ class Box
 			
 			foreach ( $rs as $arrayIndex )
     		{   			
-    			$box = new Box();    			     			    			 
+    			$box = new Box();
+				$box->id		= $arrayIndex['F_ID'];
 				$box->user		= $arrayIndex['F_USER'];
 				$box->code		= $arrayIndex['F_CODE'];
 				$box->area		= $arrayIndex['F_AREA'];
@@ -456,12 +457,12 @@ class Box
     	}
 	}
 	
-	public static function changeMoreRank($arrayList)
+	public static function changeAreaRank($arrayList)
 	{
 		try
     	{
     	
-    		$strSql = "update t_box set f_user = ? where f_name = ?";			
+    		$strSql = "update t_box set f_user = ? where f_area = ?";			
     	
     		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
           
@@ -474,6 +475,194 @@ class Box
     	}
 	}
 	
+	public static function changeRoadRank($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql = "update t_box set f_user = ? where f_area = ? and f_road = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+    		return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function insertBoxByAreaToOtherTable($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql = "update t_box set f_user = ? where f_area = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+		    $selectBoxSql = "SELECT f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude FROM t_box WHERE f_user = '{$arrayList[0]}'";
+			
+			$selectOperatorSql = "select f_user,f_code from t_operator where f_user = '{$arrayList[0]}'";
+			
+			$userBoxCode = DbOperator::queryAll($selectBoxSql);
+			
+			$userOperatorCode = DbOperator::queryAll($selectOperatorSql);
+			
+			$insertSql = "INSERT INTO t_operator SELECT f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude FROM t_box WHERE f_user = ?";
+			
+		//	$rs = false;
+						
+			if(count($userOperatorCode) == 0)
+			{
+				
+				$rs = DbOperator::executeArraySql($insertSql, array(array($arrayList[0])));
+			}
+			else
+			{
+				$nCount = 0;
+				foreach ( $userBoxCode as $arrayBoxIndex )
+				{					
+					foreach($userOperatorCode as $arrayOperatorIndex)
+					{
+						
+						if($arrayBoxIndex['F_USER'] == $arrayOperatorIndex['F_USER'] && $arrayBoxIndex['F_CODE'] == $arrayOperatorIndex['F_CODE'])
+						{							
+							unset($userBoxCode[$nCount]);
+							
+							break;
+						}
+					}										
+					$nCount ++;
+				}
+
+				if(count($userBoxCode) != 0)
+				{
+					$insertSql = "insert into t_operator(f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					
+					$inserArray = array();
+					foreach($userBoxCode as $arrayIndex)
+					{
+						$arrayBean = array();
+						$arrayBean[] = $arrayIndex['F_USER'];
+						$arrayBean[] = $arrayIndex['F_CODE'];
+						$arrayBean[] = $arrayIndex['F_AREA'];
+						$arrayBean[] = $arrayIndex['F_ROAD'];
+						$arrayBean[] = $arrayIndex['F_ADDRESS'];
+						$arrayBean[] = $arrayIndex['F_COLLECTOR'];
+						$arrayBean[] = $arrayIndex['f_index'];
+						$arrayBean[] = $arrayIndex['f_standard'];
+						$arrayBean[] = $arrayIndex['f_value'];
+						$arrayBean[] = $arrayIndex['f_channel'];
+						$arrayBean[] = $arrayIndex['f_status'];
+						$arrayBean[] = $arrayIndex['f_time'];
+						$arrayBean[] = $arrayIndex['f_mac'];
+						$arrayBean[] = $arrayIndex['f_name'];
+						$arrayBean[] = $arrayIndex['f_longitude'];
+						$arrayBean[] = $arrayIndex['f_latitude'];
+						
+						
+						$inserArray[] = $arrayBean;
+					}
+		
+					$rs = DbOperator::executeArraySql($insertSql, $inserArray);
+				}
+			}
+			
+			return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function insertBoxByRoadToOtherTable($arrayList)
+	{
+		try
+    	{
+    	
+    		$strSql =  "update t_box set f_user = ? where f_area = ? and f_road = ?";			
+    	
+    		$rs = DbOperator::executeArraySql($strSql, array($arrayList));
+          
+			 $selectBoxSql = "SELECT f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude FROM t_box WHERE f_user = '{$arrayList[0]}'";
+			
+			$selectOperatorSql = "select f_user,f_code from t_operator where f_user = '{$arrayList[0]}'";
+			
+			$userBoxCode = DbOperator::queryAll($selectBoxSql);
+			
+			$userOperatorCode = DbOperator::queryAll($selectOperatorSql);
+			
+    		$insertSql = "INSERT INTO t_operator SELECT f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude FROM t_box WHERE f_area = ? and f_road = ?";
+			
+			if(count($userOperatorCode) == 0)
+			{
+				
+				$rs = DbOperator::executeArraySql($insertSql, array(array($arrayList[1],$arrayList[2])));
+			}
+			else
+			{
+				$nCount = 0;
+				foreach ( $userBoxCode as $arrayBoxIndex )
+				{					
+					foreach($userOperatorCode as $arrayOperatorIndex)
+					{
+						
+						if($arrayBoxIndex['F_USER'] == $arrayOperatorIndex['F_USER'] && $arrayBoxIndex['F_CODE'] == $arrayOperatorIndex['F_CODE'])
+						{							
+							unset($userBoxCode[$nCount]);
+							
+							break;
+						}
+					}										
+					$nCount ++;
+				}
+
+				if(count($userBoxCode) != 0)
+				{
+					$insertSql = "insert into t_operator(f_user,f_code,f_area,f_road,f_address,f_collector,f_index,f_standard,f_value,f_channel,f_status,f_time,f_mac,f_name,f_longitude,f_latitude) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					
+					$inserArray = array();
+					foreach($userBoxCode as $arrayIndex)
+					{
+						$arrayBean = array();
+						$arrayBean[] = $arrayIndex['F_USER'];
+						$arrayBean[] = $arrayIndex['F_CODE'];
+						$arrayBean[] = $arrayIndex['F_AREA'];
+						$arrayBean[] = $arrayIndex['F_ROAD'];
+						$arrayBean[] = $arrayIndex['F_ADDRESS'];
+						$arrayBean[] = $arrayIndex['F_COLLECTOR'];
+						$arrayBean[] = $arrayIndex['f_index'];
+						$arrayBean[] = $arrayIndex['f_standard'];
+						$arrayBean[] = $arrayIndex['f_value'];
+						$arrayBean[] = $arrayIndex['f_channel'];
+						$arrayBean[] = $arrayIndex['f_status'];
+						$arrayBean[] = $arrayIndex['f_time'];
+						$arrayBean[] = $arrayIndex['f_mac'];
+						$arrayBean[] = $arrayIndex['f_name'];
+						$arrayBean[] = $arrayIndex['f_longitude'];
+						$arrayBean[] = $arrayIndex['f_latitude'];
+						
+						
+						$inserArray[] = $arrayBean;
+					}
+		
+					$rs = DbOperator::executeArraySql($insertSql, $inserArray);
+				}
+			}
+			
+			
+			return $rs;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
 	public static function getBoxPos()
 	{
 		try

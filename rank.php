@@ -53,6 +53,7 @@ else if(isset ( $_GET ['active'] ) && $_GET ['active'] == "setRank")
 	if(!empty($beanArray))
 	{
 		$smarty->assign("boxBean",$beanArray);
+		$smarty->assign("rankPerson",$_SESSION ['userId']);
 		$smarty->display("rank.html");
 	}
 	else 

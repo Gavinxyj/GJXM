@@ -37,7 +37,7 @@ class User
     
     private $head     = "";
     
-    private static $beanArray = array();
+ //   private static $beanArray = array();
     
  /**
      * @return the $fullName
@@ -208,14 +208,6 @@ class User
 	}
 
 	/**
-	 * @return the $beanArray
-	 */
-	public static function getBeanArray ()
-	{
-		return self::$beanArray;
-	}
-
-	/**
 	 * @return the $id
 	 */
 	public function getId ()
@@ -291,7 +283,9 @@ class User
     		
     		$count = 0;
     		
-    		foreach ( $rs as $arrayIndex )
+			$beanArray = array();
+    		
+			foreach ( $rs as $arrayIndex )
     		{
     			
     			 $user = new User();
@@ -310,9 +304,10 @@ class User
     			 $user->lastIp    = $arrayIndex['F_LAST_IP'];
     			 $user->lastTime  = $arrayIndex['F_LAST_TIME'];
     			 
-    			 self::$beanArray[$count++]= $user;
+    			 $beanArray[$count++]= $user;
     		}
     		
+			return $beanArray;
     	} catch (Exception $e) 
     	{
     		print "Error: " . $e->getMessage() . "<br/>";
@@ -499,6 +494,25 @@ class User
     		
     		
     		return $bRet;
+    		
+    	} catch (Exception $e)
+    	{
+    		print "Error: " . $e->getMessage() . "<br/>";
+    		die();
+    	}
+	}
+	
+	public static function getByName($userName)
+	{
+		try
+    	{
+    	
+    		$strSql = "select f_rank, f_fullname from t_users where f_username= '{$userName}'";
+    	
+    		$bRet = DbOperator::querySql($strSql);
+    		
+    		
+    		return $bRet; 
     		
     	} catch (Exception $e)
     	{

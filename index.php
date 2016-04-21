@@ -12,6 +12,7 @@
     require_once './init.php';
     require_once './classpackage/DataDetails.php';
     require_once './classpackage/User.class.php';
+	require_once './classpackage/Box.class.php';
 	if(isset($_SESSION['userId']) && isset($_SESSION['rank']))
 	{	
 		if($_SESSION['rank']=="1")//系统管理员
@@ -40,34 +41,52 @@
 			exit;
 		}*/
 		//
-		User::getAllRecord();
+		
+		
+		
+		
 		$bRet = User::checkLogin($_POST['userId'], $_POST['pwd']);
+		
+		$rank = User::getByName($_POST['userId']);
 		
 		if( $bRet == true )
 		{
-		    $arrayList = array(date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()),$_SERVER['REMOTE_ADDR'], $_POST['userId']);
+			if($rank['F_RANK'] == 1 || $rank['F_RANK'] == 3)
+			{
+				$arrayList = array(date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()),$_SERVER['REMOTE_ADDR'], $_POST['userId']);
 		    
-		    $bRet = User::updataStatus($arrayList);
+				$bRet = User::updataStatus($arrayList);
+				
+				if($bRet == true)
+				{
+					//获取待处理的箱门
+					$waitDeal = DataDetails::getNeedData();
+					//获取处理完成的箱门
+					$dealed   = DataDetails::getDealed();
+					//获取处理的历时记录
+					$hisDeal  = DataDetails::getHistoryDeal();
+					
+					$_SESSION['userId']=$_POST['userId'];
+					
+					$smarty->assign("waitDeal",$waitDeal);
+					$smarty->assign("dealed",$dealed);
+					$smarty->assign("hisDeal",array_slice($hisDeal,0,25));
+					
+					$smarty->display('monitor.html');
+					
+				   
+				}
+			}
+			else if($rank['F_RANK'] == 2)
+			{
+				$record = Box::getBoxbyName($rank['F_FULLNAME']);
+				
+			//	print_r($record);
+				
+				$smarty->assign("boxBean",$record);
+				$smarty->display('operator.html');
+			}
 		    
-		    if($bRet == true)
-		    {
-		    	//获取待处理的箱门
-		    	$waitDeal = DataDetails::getNeedData();
-		    	//获取处理完成的箱门
-		    	$dealed   = DataDetails::getDealed();
-		    	//获取处理的历时记录
-		    	$hisDeal  = DataDetails::getHistoryDeal();
-		    	
-		    	$_SESSION['userId']=$_POST['userId'];
-		    	
-		    	$smarty->assign("waitDeal",$waitDeal);
-		    	$smarty->assign("dealed",$dealed);
-		    	$smarty->assign("hisDeal",array_slice($hisDeal,0,25));
-		    	
-		        $smarty->display('monitor.html');
-		        
-		       
-		    }
 		}
 		else 
 		{

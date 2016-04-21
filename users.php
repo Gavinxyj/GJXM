@@ -16,7 +16,6 @@ if ( ! isset ( $_SESSION ['userId'] ) || empty ( $_SESSION ['userId'] ) )
 	echo "<script>alert('timeout or logout');parent.location.href='index.php'</script>";
 	exit ();
 }
-
 if ( isset ( $_GET ['active'] ) && $_GET ['active'] == "total" )
 {
 	User::getAllRecord ();
@@ -80,6 +79,7 @@ else if(isset($_POST['submit']) && !empty($_POST['id']))
 }
 else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "manager")
 {
+	print_r($_POST);
 	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()));
 	
 	$bRet = User::insertRecord($arrayBean);
@@ -106,6 +106,7 @@ else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "ope
 }
 else if(isset($_POST['submit']) && empty($_POST['id']) && $_POST['type'] == "install")
 {
+	
 	$arrayBean = array($_POST['userName'],md5($_POST['pwd']),$_POST['name'],$_POST['tel'],$_POST['rank'],$_POST['boss'],date('Y-m-d H:i:s',time()),date('Y-m-d H:i:s',time()));
 	
 	$bRet = User::insertRecord($arrayBean);
